@@ -266,10 +266,10 @@
   "abort":{  
     "NL":"Afbreken",
     "DE":"Abbrechen",
-    "EN":"Abort",
+    "EN":"Cancel",
     "IT":"Cancella",
     "PT-BR":"Abortar",
-    "RU":"Прервать",
+    "RU":"Отменить",
     "NO":"Avbryt",
     "FR":"Abandonner",
     "PL":"Anuluj"
@@ -302,7 +302,7 @@
     "EN":"Next",
     "IT":"Successivo",
     "PT-BR":"Próximo",
-    "RU":"Вперед",
+    "RU":"Далее",
     "NO":"Neste",
     "FR":"Suivant",
     "PL":"Dalej"

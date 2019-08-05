@@ -241,27 +241,38 @@
     "FR":"encore",
     "PL":"nadal"
   },
-  "raid_egg_opens":{  
-    "NL":"Gaat open",
-    "DE":"Öffnet sich um",
-    "EN":"Opens up",
-    "IT":"Si sta aprendo",
-    "PT-BR":"Ovo eclode",
-    "RU":"Откроется",
-    "NO":"Egget klekker",
-    "FR":"POP",
-    "PL":"Wyklucie"
+  "raid_egg_opens":{
+    "NL":"",
+    "DE":"",
+    "EN":"Start",
+    "IT":"",
+    "PT-BR":"",
+    "RU":"Начало в1",
+    "NO":"",
+    "FR":"",
+    "PL":""
   },
-  "raid_egg_opens_day":{  
-    "NL":"Gaat open",
-    "DE":"Öffnet sich am",
-    "EN":"Opens on",
-    "IT":"Si aprirà",
-    "PT-BR":"Ovo eclode em",
-    "RU":"Откроется",
-    "NO":"Klekker",
-    "FR":"RDV",
-    "PL":"Wykluje się"
+  "raid_start_time":{
+    "NL":"",
+    "DE":"",
+    "EN":"Start",
+    "IT":"",
+    "PT-BR":"",
+    "RU":"Начало в2",
+    "NO":"",
+    "FR":"",
+    "PL":""
+  },
+  "raid_egg_opens_day":{
+    "NL":"",
+    "DE":"",
+    "EN":"Start2",
+    "IT":"",
+    "PT-BR":"",
+    "RU":"Начало в3",
+    "NO":"",
+    "FR":"",
+    "PL":""
   },
   "raid_egg_opens_at":{  
     "NL":"om",
@@ -346,7 +357,7 @@
     "EN":"to",
     "IT":"a",
     "PT-BR":"até",
-    "RU":"к",
+    "RU":"до",
     "NO":"til",
     "FR":"DEPOP",
     "PL":"do"
@@ -450,6 +461,17 @@
     "FR":"Sélectionne un niveau de raid",
     "PL":"Wybierz poziom Rajdu"
   },
+  "select_raid_reason":{
+    "NL":"",
+    "DE":"",
+    "EN":"Raid reason",
+    "IT":"",
+    "PT-BR":"",
+    "RU":"Повод для рейда",
+    "NO":"",
+    "FR":"",
+    "PL":""
+  },
   "gym":{  
     "NL":"Gym",
     "DE":"Arena",
@@ -494,16 +516,16 @@
     "FR":"Sélectionne un Pokémon",
     "PL":"Wybierz Pokemona"
   },
-  "raid_saved":{  
-    "NL":"Raid opgeslagen:",
-    "DE":"Raid gespeichert:",
-    "EN":"Raid saved:",
-    "IT":"Raid salvato:",
-    "PT-BR":"Raid salva:",
-    "RU":"Рейд сохранен:",
-    "NO":"Raid lagret",
-    "FR":"Raid sauvegardé",
-    "PL":"Rajd zapisany"
+  "raid_saved":{
+    "NL":"",
+    "DE":"",
+    "EN":"Saved:",
+    "IT":"",
+    "PT-BR":"",
+    "RU":"Сохранено:",
+    "NO":"",
+    "FR":"",
+    "PL":""
   },
   "raid_boss":{  
     "NL":"Raid baas",
@@ -538,7 +560,18 @@
     "FR":"Optionnel - Couleur de l'arène",
     "PL":"Opcjonalnie - Nazwa Areny i kolor Areny"
   },
-  "set_gym_name_command":{  
+  "set_place_name_and_team":{
+    "NL":"",
+    "DE":"",
+    "EN":"Optional - Place name:",
+    "IT":"",
+    "PT-BR":"",
+    "RU":"<b>Следующими командами вы можете изменить</b>:",
+    "NO":"",
+    "FR":"",
+    "PL":""
+  },
+  "set_gym_name_command":{
     "NL":"/gym <code>Naam van de Gym</code>",
     "DE":"/gym <code>Name der Arena</code>",
     "EN":"/gym <code>Name of the Gym</code>",
@@ -549,7 +582,18 @@
     "FR":"/gym <code>Nom de l'arène</code>",
     "PL":"/gym <code>Nazwa Areny</code>"
   },
-  "set_gym_team":{  
+  "set_place_name_command":{
+    "NL":"",
+    "DE":"",
+    "EN":"/place <code>Place Name</code>",
+    "IT":"",
+    "PT-BR":"",
+    "RU":"Название места: /place <code>Название</code>",
+    "NO":"",
+    "FR":"",
+    "PL":""
+  },
+  "set_gym_team":{
     "NL":"Optioneel - zet Gym en Team",
     "DE":"Optional - Arena Team setzen",
     "EN":"Optional - set Gym and Team",
@@ -638,15 +682,15 @@
     "PL":"minuty"
   },
   "raid_starts_when":{  
-    "NL":"Wanneer gaat het Raid ei <b>open</b>?",
-    "DE":"Wann <b>beginnt</b> der Raid?",
-    "EN":"When will the Raid <b>begin</b>?",
-    "IT":"Quando <b>inizierà</b> il Raid?",
-    "PT-BR":"Quando a raid irá <b>começar</b>?",
-    "RU":"Когда <b>начало</b> рейда?",
-    "NO":"Når <b>starter</b> raidet?",
-    "FR":"Quand <b>démarre</b> le raid ?",
-    "PL":"Kiedy Rajd się <b>zaczyna</b>?"
+    "NL":"",
+    "DE":"",
+    "EN":"When will <b>begin</b>?",
+    "IT":"",
+    "PT-BR":"",
+    "RU":"<b>Во сколько</b> начало?",
+    "NO":"",
+    "FR":"",
+    "PL":""
   },
   "raid_starts_when_minutes":{  
     "NL":"Wanneer <b>begint</b> de Raid?",
@@ -654,7 +698,7 @@
     "EN":"In how many minutes does the raid <b>begin</b>?",
     "IT":"In quanti minuti il Raid <b>inizierà</b>?",
     "PT-BR":"Em quantos minutos a raid irá <b>começar</b>?",
-    "RU":"Через сколько минут рейд <b>начинается</b>?",
+    "RU":"<b>Через сколько минут</b> начало?",
     "NO":"Hvor mange minutter til raidet <b>starter</b>?",
     "FR":"Dans combien de minutes le raid <b>commence</b> ?",
     "PL":"Za ile minut <b>zacznie się</b> Rajd?"
@@ -698,7 +742,7 @@
     "EN":"Raid is already active!",
     "IT":"Il Raid è già attivo!",
     "PT-BR":"A raid já está ativa!",
-    "RU":"Рейд уже активен!",
+    "RU":"Уже начали!",
     "NO":"Raidet er allerede aktivt!",
     "FR":"Le raid est déjà en cours",
     "PL":"Rajd się już zaczął"
@@ -989,7 +1033,18 @@
     "FR":"Sélectionne l'arène",
     "PL":"Wybierz Arene:"
   },
-  "here_we_go":{  
+  "select_place_name":{
+    "NL":"Selecteer Gym:",
+    "DE":"Bitte Arena auswählen:",
+    "EN":"Select Place:",
+    "IT":"Seleziona Palestra:",
+    "PT-BR":"Escolha o ginásio:",
+    "RU":"Выберите Место:",
+    "NO":"Velg Gym:",
+    "FR":"Sélectionne l'arène",
+    "PL":"Wybierz Arene:"
+  },
+  "here_we_go":{
     "NL":"Hier gaan we!",
     "DE":"Los gehts!",
     "EN":"Here we go!",
@@ -1058,15 +1113,26 @@
   "send_location":{  
     "NL":"Of stuur me alsjeblieft een locatie.",
     "DE":"Oder sende mir einen Standort.",
-    "EN":"Or send me a location.",
+    "EN":"To start raid announce, press ",
     "IT":"O inviami una localizzazione.",
     "PT-BR":"Por favor, antes me envie a localização.",
-    "RU":"Или отправить мне локацию",
+    "RU":"Чтобы начать, нажмите ",
     "NO":"Eller send meg lokasjonen din ved å trykke på bindersen",
     "FR":"Ou envoi moi la localisation",
     "PL":"Albo wyślij mi swoje położenie"
   },
-  "raid_by_gym":{  
+  "send_location2":{
+    "NL":"",
+    "DE":"",
+    "EN":", select Location and move map pin to gym location",
+    "IT":"",
+    "PT-BR":"",
+    "RU":", выберите локацию и отправьте её мне",
+    "NO":"",
+    "FR":"",
+    "PL":""
+  },
+  "raid_by_gym":{
     "NL":"Maak een raid door een Gym te selecteren:",
     "DE":"Lege ein Raid per Arena-Auswahl an:",
     "EN":"Make a raid per gym selection:",
@@ -1143,7 +1209,18 @@
     "FR":"Nom de l'arène mis à jour",
     "PL":"Nazwa Areny zaktualizowana"
   },
-  "mods_details":{  
+  "place_name_updated":{
+    "NL":"",
+    "DE":"",
+    "EN":"Place name updated.",
+    "IT":"",
+    "PT-BR":"",
+    "RU":"Название обновлено.",
+    "NO":"",
+    "FR":"",
+    "PL":""
+  },
+  "mods_details":{
     "NL":"Selecteer moderator voor meer informatie:",
     "DE":"Für Details Moderator auswählen:",
     "EN":"Select moderator for details:",
@@ -1203,7 +1280,7 @@
     "EN":"Error! No moderators or users found!",
     "IT":"Errore! Nessun moderatore o utente trovato!",
     "PT-BR":"Erro! Nenhum moderador ou usuário encontrado!",
-    "RU":"Ошибка! Нет модераторов или ползователей",
+    "RU":"Ошибка! Нет модераторов или пользователей",
     "NO":"Feil! Ingen moderator eller brukere funnet!",
     "FR":"Erreur ! Aucun modérateur ou utilisateur trouvé",
     "PL":"Błąd! Brak moderatorów lub użytkowników"
