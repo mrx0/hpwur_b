@@ -387,6 +387,56 @@ function insert_gym($name, $lat, $lon, $address)
 }
 
 /**
+ * Insert place.
+ * @param $place_name
+ * @param $latitude
+ * @param $longitude
+ * @param $address
+ */
+function insert_place($name, $lat, $lon, $address)
+{
+    global $db;
+
+    // Build query to check if gym is already in database or not
+    $rs = my_query(
+        "
+        SELECT    COUNT(*)
+        FROM      place
+        WHERE   place_name = '{$name}'
+        "
+    );
+
+    $row = $rs->fetch_row();
+
+    // Gym already in database or new
+    if (empty($row['0'])) {
+        // Build query for gyms table to add gym to database
+        debug_log('Place not found in database place list! Adding place "' . $name . '" to the database place list.');
+        $rs = my_query(
+            "
+            INSERT INTO place
+            SET           lat = '{$lat}',
+                              lon = '{$lon}',
+                              place_name = '{$db->real_escape_string($name)}',
+                              address = '{$db->real_escape_string($address)}'
+            "
+        );
+    } else {
+        // Update gyms table to reflect gym changes.
+        debug_log('Place found in database place list! Updating place "' . $name . '" now.');
+        $rs = my_query(
+            "
+            UPDATE place
+            SET           lat = '{$lat}',
+                              lon = '{$lon}',
+                              address = '{$db->real_escape_string($address)}'
+               WHERE      place_name = '{$name}'
+            "
+        );
+    }
+}
+
+/**
  * Get raid level of a pokemon.
  * @param $pokedex_id
  * @return string
@@ -576,8 +626,8 @@ function get_pokemon_id_by_name($pokemon_name)
  * @param $type: raid|quest
  * @return string
  */
-function get_local_pokemon_name($pokemon_id_form, $override_language = false, $type = '')
-{
+function get_local_pokemon_name($pokemon_id_form, $override_language = false, $type = ''){
+
     // Split pokedex_id and form
     $dex_id_form = explode('-',$pokemon_id_form);
     $pokedex_id = $dex_id_form[0];
@@ -646,6 +696,27 @@ function get_gym($id)
     $gym = $rs->fetch_assoc();
 
     return $gym;
+}
+
+/**
+ * Get place.
+ * @param $id
+ * @return array
+ */
+function get_place($id)
+{
+    // Get place from database
+    $rs = my_query(
+        "
+            SELECT    *
+            FROM      places
+	    WHERE     id = {$id}
+            "
+    );
+
+    $place = $rs->fetch_assoc();
+
+    return $place;
 }
 
 /**
@@ -1084,6 +1155,87 @@ function raid_edit_raidlevel_keys($gym_id, $gym_first_letter, $admin = false)
 
     return $keys;
 }
+
+/**
+ * Raid edit start keys.
+ * @param $gym_id
+ * @param $gym_first_letter
+ * @param $admin
+ * @return array
+ */
+function raid_edit_opportunity_keys($place_id, $gym_first_letter, $admin = false)
+{
+//    // Get all opportunity from database
+//    $rs = my_query(
+//        "
+//            SELECT    raid_level, COUNT(*) AS raid_level_count
+//            FROM      pokemon
+//            WHERE     raid_level != '0'
+//            GROUP BY  raid_level
+//            ORDER BY  FIELD(raid_level, '5', '4', '3', '2', '1', 'X')
+//            "
+//    );
+
+//    // Init empty keys array.
+//    $keys = [];
+
+    // Save and Reset key
+    $keys = array(
+        array(
+            'text'          => 'Ферма '.EMOJI_EYE,
+            'callback_data' => $place_id . ',' . $gym_first_letter . ':edit_starttime:1'
+        ),
+        array(
+            'text'          => 'Башня '.EMOJI_FORT,
+            'callback_data' => $place_id . ',' . $gym_first_letter . ':edit_starttime:2'
+        ),
+        array(
+            'text'          => EMOJI_EYE.' + '.EMOJI_FORT,
+            'callback_data' => $place_id . ',' . $gym_first_letter . ':edit_starttime:3'
+        )
+    );
+
+    // Add key for each raid level
+//    while ($level = $rs->fetch_assoc()) {
+//        // Continue if user is not part of the BOT_ADMINS and raid_level is X
+//        if($level['raid_level'] == 'X' && $admin === false) continue;
+//
+//        // Add key for pokemon if we have just 1 pokemon for a level
+//        if($level['raid_level_count'] == 1) {
+//            // Raid level and aciton
+//            $raid_level = $level['raid_level'];
+//
+//            // Get pokemon from database
+//            $rs_rl = my_query(
+//                "
+//                SELECT    pokedex_id, pokemon_form
+//                FROM      pokemon
+//                WHERE     raid_level = '{$raid_level}'
+//                "
+//            );
+//
+//            // Add key for pokemon
+//            while ($pokemon = $rs_rl->fetch_assoc()) {
+//                $keys[] = array(
+//                    'text'          => get_local_pokemon_name($pokemon['pokedex_id'] . '-' . $pokemon['pokemon_form']),
+//                    'callback_data' => $gym_id . ',' . $gym_first_letter . ':edit_starttime:' . $pokemon['pokedex_id'] . '-' . $pokemon['pokemon_form']
+//                );
+//            }
+//        } else {
+//            // Add key for raid level
+//            $keys[] = array(
+//                'text'          => getTranslation($level['raid_level'] . 'stars'),
+//                'callback_data' => $gym_id . ',' . $gym_first_letter . ':edit_pokemon:' . $level['raid_level']
+//            );
+//        }
+//    }
+
+    // Get the inline key array.
+    $keys = inline_key_array($keys, 3);
+
+    return $keys;
+}
+
 
 /**
  * Raid gym first letter selection
@@ -2794,7 +2946,8 @@ function get_overview($update, $chats_active, $raids_active, $action = 'refresh'
             // Is the raid in the same week?
             if($week_now == $week_start && $date_now == $date_raid) {
                 // Output: Raid egg opens up 17:00
-                $msg .= $pokemon . ' — <b>' . getRaidTranslation('raid_egg_opens') . ' ' . unix2tz($start_time, $tz);
+                // !!! хз пока где
+                $msg .= $pokemon . ' — <b>' . getRaidTranslation('raid_start_time') . ' ' . unix2tz($start_time, $tz);
             } else {
                 if($days_to_raid > 6) {
                     // Output: Raid egg opens on Friday, 13 April (2018)
@@ -3046,7 +3199,8 @@ function show_raid_poll($raid)
         // Is the raid in the same week?
         if($week_now == $week_start && $date_now == $date_raid) {
             // Output: Raid egg opens up 17:00
-            $msg .= '<b>' . getRaidTranslation('raid_egg_opens') . ' ' . unix2tz($raid['ts_start'], $raid['timezone']);
+            // Сообщение, когда расшарено
+            $msg .= '<b>' . getRaidTranslation('raid_start_time') . ' ' . unix2tz($raid['ts_start'], $raid['timezone']);
         } else {
             if($days_to_raid > 6) {
                 // Output: Raid egg opens on Friday, 13 April (2018)
@@ -3396,11 +3550,15 @@ function show_raid_poll($raid)
 
 /**
  * Show small raid poll.
+ * Когда все закончено и показывается создателю в боте
  * @param $raid
  * @return string
  */
-function show_raid_poll_small($raid)
-{
+function show_raid_poll_small($raid){
+
+    // Write to log.
+    //debug_log('Raid: '.$raid);
+
     // Build message string.
     $msg = '';
 
@@ -3441,7 +3599,8 @@ function show_raid_poll_small($raid)
         // Is the raid in the same week?
         if($week_now == $week_start && $date_now == $date_raid) {
             // Output: Raid egg opens up 17:00
-            $msg .= '<b>' . getTranslation('raid_egg_opens') . ' ' . unix2tz($raid['ts_start'], $raid['timezone']);
+            // В сообщении, где сохраняется в боте
+            $msg .= '<b>' . getTranslation('raid_start_time') . ' ' . unix2tz($raid['ts_start'], $raid['timezone']);
         } else {
             if($days_to_raid > 6) {
                 // Output: Raid egg opens on Friday, 13 April (2018)

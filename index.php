@@ -52,8 +52,8 @@ if ($db->connect_errno) {
 // Run cleanup if requested
 include_once(CORECLASS_PATH . '/cleanup_run.php');
 
-// Update the user
-if ($ddos_count < 2) {
+// Update the user  было < 2
+if ($ddos_count < 3) {
     // Update the user.
     $userUpdate = update_user($update);
 
