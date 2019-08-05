@@ -1,0 +1,104 @@
+<?php
+// Write to log.
+debug_log('pokedex_edit_pokemon()');
+
+// For debug.
+//debug_log($update);
+//debug_log($data);
+
+// Set the id.
+$poke_id_form = $data['id'];
+$dex_id_form = explode('-',$data['id']);
+$pokedex_id = $dex_id_form[0];
+$pokemon_form = $dex_id_form[1];
+
+// Set the arg.
+$arg = $data['arg'];
+
+// Init empty keys array.
+$keys = [];
+
+// Set the message.
+$msg = get_pokemon_info($poke_id_form);
+$msg .= '<b>' . getTranslation('pokedex_select_action') . '</b>';
+
+// Create keys array.
+$keys = [
+    [
+        [
+            'text'          => getTranslation('pokedex_raid_level'),
+            'callback_data' => $poke_id_form . ':pokedex_set_raid_level:setlevel'
+        ]
+    ]
+];
+
+// Raid-Egg? Hide specific options!
+$eggs = $GLOBALS['eggs'];
+if(!in_array($pokedex_id, $eggs)) {
+    $keys_cp_weather = [
+        [  
+            [
+                'text'          => getTranslation('pokedex_min_cp'),
+                'callback_data' => $poke_id_form . ':pokedex_set_cp:min-20-add-0'
+            ]
+        ],
+        [
+            [
+                'text'          => getTranslation('pokedex_max_cp'),
+                'callback_data' => $poke_id_form . ':pokedex_set_cp:max-20-add-0'
+            ]
+        ],
+        [
+            [
+                'text'          => getTranslation('pokedex_min_weather_cp'),
+                'callback_data' => $poke_id_form . ':pokedex_set_cp:min-25-add-0'
+            ]
+        ],
+        [
+            [
+                'text'          => getTranslation('pokedex_max_weather_cp'),
+                'callback_data' => $poke_id_form . ':pokedex_set_cp:max-25-add-0'
+            ]
+        ],
+        [
+            [
+                'text'          => getTranslation('pokedex_weather'),
+                'callback_data' => $poke_id_form . ':pokedex_set_weather:add-0'
+            ]
+        ]
+    ];
+
+    $keys = array_merge($keys, $keys_cp_weather);
+}
+
+// Back and abort.
+$keys[] = [
+    [
+        'text'          => getTranslation('back'),
+        'callback_data' => '0:pokedex:0'
+    ],
+    [
+        'text'          => getTranslation('abort'),
+        'callback_data' => '0:exit:0'
+    ]
+];
+
+// Send message.
+if($arg == 'id-or-name') {
+    // Send message.
+    send_message($update['message']['chat']['id'], $msg, $keys, ['reply_markup' => ['selective' => true, 'one_time_keyboard' => true]]);
+
+// Edit message.
+} else {
+    // Build callback message string.
+    $callback_response = 'OK';
+
+    // Answer callback.
+    answerCallbackQuery($update['callback_query']['id'], $callback_response);
+
+    // Edit message.
+    edit_message($update, $msg, $keys, false);
+}
+
+// Exit.
+exit();
