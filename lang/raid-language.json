@@ -483,7 +483,18 @@
     "FR":"Arène",
     "PL":"Arena"
   },
-  "gym_saved":{  
+  "place":{
+    "NL":"",
+    "DE":"",
+    "EN":"Place",
+    "IT":"",
+    "PT-BR":"",
+    "RU":"Место",
+    "NO":"",
+    "FR":"",
+    "PL":""
+  },
+  "gym_saved":{
     "NL":"Gym opgeslagen.",
     "DE":"Arena gespeichert.",
     "EN":"Gym saved.",

@@ -3009,7 +3009,7 @@ function get_overview($update, $chats_active, $raids_active, $action = 'refresh'
         $previous_raid = $row['raid_id'];
     }
 }
-/**
+/**`
  * Convert unix timestamp to time string by timezone settings.
  * @param $unix
  * @param $tz
@@ -3112,7 +3112,7 @@ function show_raid_poll($raid){
         // Add gym name to message.
         if ($raid['place_name']) {
             $ex_raid_gym_marker = (strtolower(RAID_EX_GYM_MARKER) == 'icon') ? EMOJI_STAR : '<b>' . RAID_EX_GYM_MARKER . '</b>';
-            $msg .= getRaidTranslation('gym') . ': ' . ($raid['ex_gym'] ? $ex_raid_gym_marker . SP : '') . '<b>' . $raid['place_name'] . '</b>';
+            $msg .= getRaidTranslation('place') . ': ' . ($raid['ex_gym'] ? $ex_raid_gym_marker . SP : '') . '<b>' . $raid['place_name'] . '</b>';
         }
 
         // Add team to message.
@@ -3437,7 +3437,7 @@ function show_raid_poll($raid){
                         sum(cancel = '1')      AS count_cancel,
                         sum(extra_auror)           AS extra_auror,
                         sum(extra_zoolog)            AS extra_zoolog,
-                        sum(extra_proft)         AS extra_prof
+                        sum(extra_prof)         AS extra_prof
         FROM            attendance
           WHERE         raid_id = {$raid['id']}
             AND         (raid_done = 1
@@ -3738,7 +3738,7 @@ function raid_list($update){
 			        UNIX_TIMESTAMP(end_time)-UNIX_TIMESTAMP(NOW())  AS t_left,
                                 users.name
 		    FROM        raids
-                    LEFT JOIN   gyms
+                    LEFT JOIN   places
                     ON          raids.gym_id = places.id
                     LEFT JOIN   users
                     ON          raids.user_id = users.user_id

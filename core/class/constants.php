@@ -91,9 +91,13 @@ $teams = array(
     'mystic'    => TEAM_B,
     'valor'     => TEAM_R,
     'instinct'  => TEAM_Y,
+    'auror'     => EMOJI_AUROR,
+    'zoolog'    => EMOJI_MAGOZOOLOGIST2,
+    'prof'      => EMOJI_PROFESSOR,
     'unknown'   => TEAM_UNKNOWN,
     'cancel'    => TEAM_CANCEL
 );
+
 
 // Raid eggs.
 $eggs = array(
