@@ -73,7 +73,7 @@ if ($raid_id == 0 && $gym_id != 0) {
     }
 
     // Duration and end time.
-    $duration = RAID_POKEMON_DURATION_SHORT;
+    $duration = RAID_DURATION_SHORT;
     $end = date('Y-m-d H:i:s', strtotime('+' . $duration . ' minutes', strtotime($start_date_time)));
 
     // Check for duplicate raid
@@ -153,10 +153,10 @@ $keys = [];
 // Raid pokemon duration short or 1 Minute / 5 minute time slots
 if($opt_arg == 'more') {
     if ($slot_switch == 0) {
-	$slotmax = RAID_POKEMON_DURATION_SHORT;
+	$slotmax = RAID_DURATION_SHORT;
 	$slotsize = 1;
     } else {
-	$slotmax = RAID_POKEMON_DURATION_LONG;
+	$slotmax = RAID_DURATION_LONG;
 	$slotsize = 5;
     }
 
@@ -169,7 +169,7 @@ if($opt_arg == 'more') {
         );
     }
 } else {
-    debug_log('Comparing slot switch and argument for fast forward using RAID_POKEMON_DURATION_SHORT');
+    debug_log('Comparing slot switch and argument for fast forward using RAID_DURATION_SHORT');
     if ($slot_switch == 0) {
         // Write to log.
         debug_log('Doing a fast forward now!');
@@ -179,7 +179,7 @@ if($opt_arg == 'more') {
         $data = [];
         $data['id'] = $raid_id;
         $data['action'] = 'edit_save';
-        $data['arg'] = RAID_POKEMON_DURATION_SHORT;
+        $data['arg'] = RAID_DURATION_SHORT;
 
         // Write to log.
         debug_log($data, '* NEW DATA= ');
@@ -200,8 +200,8 @@ if($opt_arg == 'more') {
 
         // Use raid pokemon duration short.
         $keys[] = array(
-            'text'          => '0:' . RAID_POKEMON_DURATION_SHORT,
-            'callback_data' => $raid_id . ':edit_save:' . RAID_POKEMON_DURATION_SHORT
+            'text'          => '0:' . RAID_DURATION_SHORT,
+            'callback_data' => $raid_id . ':edit_save:' . RAID_DURATION_SHORT
         );
 
         // Button for more options.

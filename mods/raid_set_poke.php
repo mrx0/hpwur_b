@@ -29,7 +29,7 @@ $keys = [];
 
 // Build message string.
 $msg = '';
-$msg .= getTranslation('raid_saved') . CR;
+$msg .= getTranslation('raid_saved').'1' . CR;
 $msg .= show_raid_poll_small($raid);
 
 // Build callback message string.

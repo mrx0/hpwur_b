@@ -482,15 +482,15 @@ function get_raid($raid_id)
     $rs = my_query(
         "
         SELECT     raids.*,
-                   gyms.lat, gyms.lon, gyms.address, gyms.gym_name, gyms.ex_gym,
+                   places.lat, places.lon, places.address, places.place_name, places.ex_gym,
                    users.name,
                    UNIX_TIMESTAMP(start_time)                      AS ts_start,
                    UNIX_TIMESTAMP(end_time)                        AS ts_end,
                    UNIX_TIMESTAMP(NOW())                           AS ts_now,
                    UNIX_TIMESTAMP(end_time)-UNIX_TIMESTAMP(NOW())  AS t_left
         FROM       raids
-        LEFT JOIN  gyms
-        ON         raids.gym_id = gyms.id
+        LEFT JOIN  places
+        ON         raids.gym_id = places.id
         LEFT JOIN  users
         ON         raids.user_id = users.user_id
         WHERE      raids.id = {$raid_id}
@@ -516,15 +516,15 @@ function get_active_raids($tz)
     $rs = my_query(
         "
         SELECT     raids.*,
-                   gyms.lat, gyms.lon, gyms.address, gyms.gym_name, gyms.ex_gym,
+                   places.lat, places.lon, places.address, places.place_name, places.ex_gym,
                    UNIX_TIMESTAMP(start_time)                      AS ts_start,
                    UNIX_TIMESTAMP(end_time)                        AS ts_end,
                    UNIX_TIMESTAMP(NOW())                           AS ts_now,
                    UNIX_TIMESTAMP(end_time)-UNIX_TIMESTAMP(NOW())  AS t_left
         FROM       raids
-        LEFT JOIN  gyms
-        ON         raids.gym_id = gyms.id
-        WHERE      end_time>NOW()
+        LEFT JOIN  places
+        ON         raids.gym_id = places.id
+        WHERE      end_time > NOW()
         AND        timezone='{$tz}'
         ORDER BY   end_time ASC LIMIT 20
         "
@@ -2153,15 +2153,15 @@ function keys_vote($raid)
                 'callback_data' => $raid['id'] . ':vote_extra:0'
             ],
             [
-                'text'          => '+ ' . TEAM_B,
+                'text'          => '+ ' . EMOJI_AUROR,
                 'callback_data' => $raid['id'] . ':vote_extra:mystic'
             ],
             [
-                'text'          => '+ ' . TEAM_R,
+                'text'          => '+ ' . EMOJI_MAGOZOOLOGIST2,
                 'callback_data' => $raid['id'] . ':vote_extra:valor'
             ],
             [
-                'text'          => '+ ' . TEAM_Y,
+                'text'          => '+ ' . EMOJI_PROFESSOR,
                 'callback_data' => $raid['id'] . ':vote_extra:instinct'
             ]
         ]
@@ -2994,9 +2994,9 @@ function get_overview($update, $chats_active, $raids_active, $action = 'refresh'
         // Add to message.
         if ($att['count'] > 0) {
             $msg .= EMOJI_GROUP . '<b> ' . ($att['count'] + $att['extra_mystic'] + $att['extra_valor'] + $att['extra_instinct']) . '</b> — ';
-            $msg .= ((($att['count_mystic'] + $att['extra_mystic']) > 0) ? TEAM_B . ($att['count_mystic'] + $att['extra_mystic']) . '  ' : '');
-            $msg .= ((($att['count_valor'] + $att['extra_valor']) > 0) ? TEAM_R . ($att['count_valor'] + $att['extra_valor']) . '  ' : '');
-            $msg .= ((($att['count_instinct'] + $att['extra_instinct']) > 0) ? TEAM_Y . ($att['count_instinct'] + $att['extra_instinct']) . '  ' : '');
+            $msg .= ((($att['count_mystic'] + $att['extra_mystic']) > 0) ? EMOJI_AUROR . ($att['count_mystic'] + $att['extra_mystic']) . '  ' : '');
+            $msg .= ((($att['count_valor'] + $att['extra_valor']) > 0) ? EMOJI_MAGOZOOLOGIST2 . ($att['count_valor'] + $att['extra_valor']) . '  ' : '');
+            $msg .= ((($att['count_instinct'] + $att['extra_instinct']) > 0) ? EMOJI_PROFESSOR . ($att['count_instinct'] + $att['extra_instinct']) . '  ' : '');
             $msg .= (($att['count_no_team'] > 0) ? TEAM_UNKNOWN . $att['count_no_team'] : '');
             $msg .= CR;
         }
@@ -3102,17 +3102,17 @@ function delete_raid($raid_id)
  * @param $raid
  * @return string
  */
-function show_raid_poll($raid)
-{
+function show_raid_poll($raid){
+
     // Init empty message string.
     $msg = '';
 
     // Display gym details.
-    if ($raid['gym_name'] || $raid['gym_team']) {
+    if ($raid['place_name'] || $raid['gym_team']) {
         // Add gym name to message.
-        if ($raid['gym_name']) {
+        if ($raid['place_name']) {
             $ex_raid_gym_marker = (strtolower(RAID_EX_GYM_MARKER) == 'icon') ? EMOJI_STAR : '<b>' . RAID_EX_GYM_MARKER . '</b>';
-            $msg .= getRaidTranslation('gym') . ': ' . ($raid['ex_gym'] ? $ex_raid_gym_marker . SP : '') . '<b>' . $raid['gym_name'] . '</b>';
+            $msg .= getRaidTranslation('gym') . ': ' . ($raid['ex_gym'] ? $ex_raid_gym_marker . SP : '') . '<b>' . $raid['place_name'] . '</b>';
         }
 
         // Add team to message.
@@ -3142,7 +3142,7 @@ function show_raid_poll($raid)
 		if(!empty($Address)) {
 			my_query(
 				"
-				UPDATE    gyms
+				UPDATE    places
 				SET     address = '{$Address}'
 				WHERE   id = {$raid['gym_id']}
 				"
@@ -3156,7 +3156,7 @@ function show_raid_poll($raid)
     }
 
     // Display raid boss name.
-    $msg .= getRaidTranslation('raid_boss') . ': <b>' . get_local_pokemon_name($raid['pokemon'], true, 'raid') . '</b>';
+    //$msg .= getRaidTranslation('raid_boss') . '777: <b>' . get_local_pokemon_name($raid['pokemon'], true, 'raid') . '</b>';
 
     // Display raid boss weather.
     $pokemon_weather = get_pokemon_weather($raid['pokemon']);
@@ -3200,7 +3200,7 @@ function show_raid_poll($raid)
         if($week_now == $week_start && $date_now == $date_raid) {
             // Output: Raid egg opens up 17:00
             // Сообщение, когда расшарено
-            $msg .= '<b>' . getRaidTranslation('raid_start_time') . ' ' . unix2tz($raid['ts_start'], $raid['timezone']);
+            $msg .= '<b>' . getRaidTranslation('raid_start_time') . ' ' . unix2tz($raid['ts_start'], $raid['timezone'], 'd.m.Y H:i');
         } else {
             if($days_to_raid > 6) {
                 // Output: Raid egg opens on Friday, 13 April (2018)
@@ -3241,14 +3241,14 @@ function show_raid_poll($raid)
         "
         SELECT DISTINCT UNIX_TIMESTAMP(attend_time) AS ts_att,
                         count(attend_time)          AS count,
-                        sum(team = 'mystic')        AS count_mystic,
-                        sum(team = 'valor')         AS count_valor,
-                        sum(team = 'instinct')      AS count_instinct,
+                        sum(team = 'auror')         AS count_auror,
+                        sum(team = 'zoolog')        AS count_zoolog,
+                        sum(team = 'prof')          AS count_prof,
                         sum(team IS NULL)           AS count_no_team,
-                        sum(extra_mystic)           AS extra_mystic,
-                        sum(extra_valor)            AS extra_valor,
-                        sum(extra_instinct)         AS extra_instinct,
-                        sum(IF(late = '1', (late = '1') + extra_mystic + extra_valor + extra_instinct, 0)) AS count_late,
+                        sum(extra_auror)            AS extra_auror,
+                        sum(extra_zoolog)           AS extra_zoolog,
+                        sum(extra_prof)             AS extra_prof,
+                        sum(IF(late = '1', (late = '1') + extra_auror + extra_zoolog + extra_prof, 0)) AS count_late,
                         sum(pokemon = '0')                   AS count_any_pokemon,
                         sum(pokemon = '{$raid['pokemon']}')  AS count_raid_pokemon,
                         attend_time
@@ -3286,14 +3286,14 @@ function show_raid_poll($raid)
             "
             SELECT DISTINCT UNIX_TIMESTAMP(attend_time) AS ts_att,
                             count(attend_time)          AS count,
-                            sum(team = 'mystic')        AS count_mystic,
-                            sum(team = 'valor')         AS count_valor,
-                            sum(team = 'instinct')      AS count_instinct,
+                            sum(team = 'auror')         AS count_auror,
+                            sum(team = 'zoolog')        AS count_zoolog,
+                            sum(team = 'prof')          AS count_prof,
                             sum(team IS NULL)           AS count_no_team,
-                            sum(extra_mystic)           AS extra_mystic,
-                            sum(extra_valor)            AS extra_valor,
-                            sum(extra_instinct)         AS extra_instinct,
-                            sum(IF(late = '1', (late = '1') + extra_mystic + extra_valor + extra_instinct, 0)) AS count_late,
+                            sum(extra_auror)            AS extra_auror,
+                            sum(extra_zoolog)           AS extra_zoolog,
+                            sum(extra_prof)             AS extra_prof,
+                            sum(IF(late = '1', (late = '1') + extra_auror + extra_valor + extra_prof, 0)) AS count_late,
                             sum(pokemon = '0')                   AS count_any_pokemon,
                             sum(pokemon = '{$raid['pokemon']}')  AS count_raid_pokemon,
                             attend_time,
@@ -3360,22 +3360,22 @@ function show_raid_poll($raid)
             // Add section/header for time
             if($previous_att_time != $current_att_time) {
                 // Add to message.
-                $count_att_time_extrapeople = $cnt[$current_att_time]['extra_mystic'] + $cnt[$current_att_time]['extra_valor'] + $cnt[$current_att_time]['extra_instinct'];
+                $count_att_time_extrapeople = $cnt[$current_att_time]['extra_auror'] + $cnt[$current_att_time]['extra_zoolog'] + $cnt[$current_att_time]['extra_prof'];
                 $msg .= CR . '<b>' . (($current_att_time == 0) ? (getRaidTranslation('anytime')) : (unix2tz($current_att_time, $raid['timezone']))) . '</b>' . ' [' . ($cnt[$current_att_time]['count'] + $count_att_time_extrapeople) . ']';
 
                 // Add attendance counts by team.
                 if ($cnt[$current_att_time]['count'] > 0) {
                     // Attendance counts by team.
-                    $count_mystic = $cnt[$current_att_time]['count_mystic'] + $cnt[$current_att_time]['extra_mystic'];
-                    $count_valor = $cnt[$current_att_time]['count_valor'] + $cnt[$current_att_time]['extra_valor'];
-                    $count_instinct = $cnt[$current_att_time]['count_instinct'] + $cnt[$current_att_time]['extra_instinct'];
+                    $count_auror = $cnt[$current_att_time]['count_auror'] + $cnt[$current_att_time]['extra_auror'];
+                    $count_zoolog = $cnt[$current_att_time]['count_zoolog'] + $cnt[$current_att_time]['extra_zoolog'];
+                    $count_prof = $cnt[$current_att_time]['count_prof'] + $cnt[$current_att_time]['extra_prof'];
                     $count_late = $cnt[$current_att_time]['count_late'];
 
                     // Add to message.
                     $msg .= ' — ';
-                    $msg .= (($count_mystic > 0) ? TEAM_B . $count_mystic . '  ' : '');
-                    $msg .= (($count_valor > 0) ? TEAM_R . $count_valor . '  ' : '');
-                    $msg .= (($count_instinct > 0) ? TEAM_Y . $count_instinct . '  ' : '');
+                    $msg .= (($count_auror > 0) ? EMOJI_AUROR . $count_auror . '  ' : '');
+                    $msg .= (($count_zoolog > 0) ? EMOJI_MAGOZOOLOGIST2 . $count_zoolog . '  ' : '');
+                    $msg .= (($count_prof > 0) ? EMOJI_PROFESSOR . $count_prof . '  ' : '');
                     $msg .= (($cnt[$current_att_time]['count_no_team'] > 0) ? TEAM_UNKNOWN . $cnt[$current_att_time]['count_no_team'] . '  ' : '');
                     $msg .= (($count_late > 0) ? EMOJI_LATE . $count_late . '  ' : '');
                 }
@@ -3396,17 +3396,17 @@ function show_raid_poll($raid)
 
                     // Attendance counts by team.
                     $current_att_time_poke = $cnt_pokemon[$current_att_time . '_' . $current_pokemon];
-                    $count_att_time_poke_extrapeople = $current_att_time_poke['extra_mystic'] + $current_att_time_poke['extra_valor'] + $current_att_time_poke['extra_instinct'];
-                    $poke_count_mystic = $current_att_time_poke['count_mystic'] + $current_att_time_poke['extra_mystic'];
-                    $poke_count_valor = $current_att_time_poke['count_valor'] + $current_att_time_poke['extra_valor'];
-                    $poke_count_instinct = $current_att_time_poke['count_instinct'] + $current_att_time_poke['extra_instinct'];
+                    $count_att_time_poke_extrapeople = $current_att_time_poke['extra_auror'] + $current_att_time_poke['extra_zoolog'] + $current_att_time_poke['extra_prof'];
+                    $poke_count_auror = $current_att_time_poke['count_auror'] + $current_att_time_poke['extra_auror'];
+                    $poke_count_zoolog = $current_att_time_poke['count_zoolog'] + $current_att_time_poke['extra_zoolog'];
+                    $poke_count_prof = $current_att_time_poke['count_prof'] + $current_att_time_poke['extra_prof'];
                     $poke_count_late = $current_att_time_poke['count_late'];
 
                     // Add to message.
                     $msg .= ' [' . ($current_att_time_poke['count'] + $count_att_time_poke_extrapeople) . '] — ';
-                    $msg .= (($poke_count_mystic > 0) ? TEAM_B . $poke_count_mystic . '  ' : '');
-                    $msg .= (($poke_count_valor > 0) ? TEAM_R . $poke_count_valor . '  ' : '');
-                    $msg .= (($poke_count_instinct > 0) ? TEAM_Y . $poke_count_instinct . '  ' : '');
+                    $msg .= (($poke_count_auror > 0) ? EMOJI_AUROR . $poke_count_auror . '  ' : '');
+                    $msg .= (($poke_count_zoolog > 0) ? EMOJI_MAGOZOOLOGIST2 . $poke_count_zoolog . '  ' : '');
+                    $msg .= (($poke_count_prof > 0) ? EMOJI_PROFESSOR . $poke_count_prof . '  ' : '');
                     $msg .= (($current_att_time_poke['count_no_team'] > 0) ? TEAM_UNKNOWN . ($current_att_time_poke['count_no_team']) : '');
                     $msg .= (($poke_count_late > 0) ? EMOJI_LATE . $poke_count_late . '  ' : '');
                     $msg .= CR;
@@ -3419,9 +3419,9 @@ function show_raid_poll($raid)
             $msg .= ($row['level'] == 0) ? ('<b>00</b> ') : (($row['level'] < 10) ? ('<b>0' . $row['level'] . '</b> ') : ('<b>' . $row['level'] . '</b> '));
             $msg .= '<a href="tg://user?id=' . $row['user_id'] . '">' . htmlspecialchars($row['name']) . '</a> ';
             $msg .= ($raid_level == 'X' && $row['invite']) ? (EMOJI_INVITE . ' ') : '';
-            $msg .= ($row['extra_mystic']) ? ('+' . $row['extra_mystic'] . TEAM_B . ' ') : '';
-            $msg .= ($row['extra_valor']) ? ('+' . $row['extra_valor'] . TEAM_R . ' ') : '';
-            $msg .= ($row['extra_instinct']) ? ('+' . $row['extra_instinct'] . TEAM_Y . ' ') : '';
+            $msg .= ($row['extra_auror']) ? ('+' . $row['extra_auror'] . EMOJI_AUROR . ' ') : '';
+            $msg .= ($row['extra_zoolog']) ? ('+' . $row['extra_zoolog'] . EMOJI_MAGOZOOLOGIST2 . ' ') : '';
+            $msg .= ($row['extra_prof']) ? ('+' . $row['extra_prof'] . EMOJI_PROFESSOR . ' ') : '';
             $msg .= CR;
 
             // Prepare next result
@@ -3435,9 +3435,9 @@ function show_raid_poll($raid)
         "
         SELECT DISTINCT sum(raid_done = '1')   AS count_done,
                         sum(cancel = '1')      AS count_cancel,
-                        sum(extra_mystic)           AS extra_mystic,
-                        sum(extra_valor)            AS extra_valor,
-                        sum(extra_instinct)         AS extra_instinct
+                        sum(extra_auror)           AS extra_auror,
+                        sum(extra_zoolog)            AS extra_zoolog,
+                        sum(extra_proft)         AS extra_prof
         FROM            attendance
           WHERE         raid_id = {$raid['id']}
             AND         (raid_done = 1
@@ -3453,12 +3453,12 @@ function show_raid_poll($raid)
     while ($cnt_row_cancel_done = $rs_cnt_cancel_done->fetch_assoc()) {
         // Cancel count
         if($cnt_row_cancel_done['count_cancel'] > 0) {
-            $cnt_cancel_done['count_cancel'] = $cnt_row_cancel_done['count_cancel'] + $cnt_row_cancel_done['extra_mystic'] + $cnt_row_cancel_done['extra_valor'] + $cnt_row_cancel_done['extra_instinct'];
+            $cnt_cancel_done['count_cancel'] = $cnt_row_cancel_done['count_cancel'] + $cnt_row_cancel_done['extra_auror'] + $cnt_row_cancel_done['extra_zoolog'] + $cnt_row_cancel_done['extra_prof'];
         }
 
         // Done count
         if($cnt_row_cancel_done['count_done'] > 0) {
-            $cnt_cancel_done['count_done'] = $cnt_row_cancel_done['count_done'] + $cnt_row_cancel_done['extra_mystic'] + $cnt_row_cancel_done['extra_valor'] + $cnt_row_cancel_done['extra_instinct'];
+            $cnt_cancel_done['count_done'] = $cnt_row_cancel_done['count_done'] + $cnt_row_cancel_done['extra_auror'] + $cnt_row_cancel_done['extra_zoolog'] + $cnt_row_cancel_done['extra_prof'];
         }
     }
     
@@ -3520,9 +3520,9 @@ function show_raid_poll($raid)
             $msg .= ($raid_level == 'X' && $row['invite']) ? (EMOJI_INVITE . ' ') : '';
             $msg .= ($row['cancel'] == 1) ? ('[' . (($row['ts_att'] == 0) ? (getRaidTranslation('anytime')) : (unix2tz($row['ts_att'], $raid['timezone']))) . '] ') : '';
             $msg .= ($row['raid_done'] == 1) ? ('[' . (($row['ts_att'] == 0) ? (getRaidTranslation('anytime')) : (unix2tz($row['ts_att'], $raid['timezone']))) . '] ') : '';
-            $msg .= ($row['extra_mystic']) ? ('+' . $row['extra_mystic'] . TEAM_B . ' ') : '';
-            $msg .= ($row['extra_valor']) ? ('+' . $row['extra_valor'] . TEAM_R . ' ') : '';
-            $msg .= ($row['extra_instinct']) ? ('+' . $row['extra_instinct'] . TEAM_Y . ' ') : '';
+            $msg .= ($row['extra_auror']) ? ('+' . $row['extra_auror'] . EMOJI_AUROR . ' ') : '';
+            $msg .= ($row['extra_zoolog']) ? ('+' . $row['extra_zoolog'] . EMOJI_MAGOZOOLOGIST2 . ' ') : '';
+            $msg .= ($row['extra_prof']) ? ('+' . $row['extra_prof'] . EMOJI_PROFESSOR . ' ') : '';
             $msg .= CR;
         }
     } 
@@ -3562,6 +3562,19 @@ function show_raid_poll_small($raid){
     // Build message string.
     $msg = '';
 
+    if(!empty($raid['pokemon'])) {
+        if ($raid['pokemon'] == 1){
+            $msg .= ' '.EMOJI_EYE;
+        }
+        if ($raid['pokemon'] == 2){
+            $msg .= ' '.EMOJI_FORT;
+        }
+        if ($raid['pokemon'] == 3){
+            $msg .= ' '.EMOJI_EYE.' + '.EMOJI_FORT;
+        }
+        $msg .= CR;
+    }
+
     // Gym Name
     if(!empty($raid['gym_name'])) {
         $msg .= '<b>' . $raid['gym_name'] . '</b>' . CR;
@@ -3573,9 +3586,11 @@ function show_raid_poll_small($raid){
     }
 
     // Pokemon
-    if(!empty($raid['pokemon'])) {
-        $msg .= '<b>' . get_local_pokemon_name($raid['pokemon']) . '</b> ' . CR;
-    }
+//    if(!empty($raid['pokemon'])) {
+//        $msg .= '<b>' . get_local_pokemon_name($raid['pokemon']) . '</b> ' . CR;
+//    }
+
+
     // Start time and end time
     if(!empty($raid['ts_start']) && !empty($raid['ts_end'])) {
         // Now
@@ -3600,7 +3615,7 @@ function show_raid_poll_small($raid){
         if($week_now == $week_start && $date_now == $date_raid) {
             // Output: Raid egg opens up 17:00
             // В сообщении, где сохраняется в боте
-            $msg .= '<b>' . getTranslation('raid_start_time') . ' ' . unix2tz($raid['ts_start'], $raid['timezone']);
+            $msg .= '<b>' . getTranslation('raid_start_time') . ' ' . unix2tz($raid['ts_start'], $raid['timezone'], 'd.m.Y H:i');
         } else {
             if($days_to_raid > 6) {
                 // Output: Raid egg opens on Friday, 13 April (2018)
@@ -3620,13 +3635,13 @@ function show_raid_poll_small($raid){
     $rs = my_query(
         "
         SELECT          count(attend_time)          AS count,
-                        sum(team = 'mystic')        AS count_mystic,
-                        sum(team = 'valor')         AS count_valor,
-                        sum(team = 'instinct')      AS count_instinct,
+                        sum(team = 'auror')         AS count_auror,
+                        sum(team = 'zoolog')        AS count_zoolog,
+                        sum(team = 'prof')          AS count_prof,
                         sum(team IS NULL)           AS count_no_team,
-                        sum(extra_mystic)           AS extra_mystic,
-                        sum(extra_valor)            AS extra_valor,
-                        sum(extra_instinct)         AS extra_instinct
+                        sum(extra_auror)            AS extra_auror,
+                        sum(extra_zoolog)           AS extra_zoolog,
+                        sum(extra_prof)             AS extra_prof
         FROM            attendance
         LEFT JOIN       users
           ON            attendance.user_id = users.user_id
@@ -3642,19 +3657,19 @@ function show_raid_poll_small($raid){
     // Add to message.
     if ($row['count'] > 0) {
         // Count by team.
-        $count_mystic = $row['count_mystic'] + $row['extra_mystic'];
-        $count_valor = $row['count_valor'] + $row['extra_valor'];
-        $count_instinct = $row['count_instinct'] + $row['extra_instinct'];
+        $count_auror = $row['count_auror'] + $row['extra_auror'];
+        $count_zoolog = $row['count_zoolog'] + $row['extra_zoolog'];
+        $count_prof = $row['count_prof'] + $row['extra_prof'];
 
         // Add to message.
-        $msg .= EMOJI_GROUP . '<b> ' . ($row['count'] + $row['extra_mystic'] + $row['extra_valor'] + $row['extra_instinct']) . '</b> — ';
-        $msg .= (($count_mystic > 0) ? TEAM_B . $count_mystic . '  ' : '');
-        $msg .= (($count_valor > 0) ? TEAM_R . $count_valor . '  ' : '');
-        $msg .= (($count_instinct > 0) ? TEAM_Y . $count_instinct . '  ' : '');
+        $msg .= EMOJI_GROUP . '<b> ' . ($row['count'] + $row['extra_auror'] + $row['extra_zoolog'] + $row['extra_prof']) . '</b> — ';
+        $msg .= (($count_auror > 0) ? EMOJI_AUROR . $count_auror . '  ' : '');
+        $msg .= (($count_zoolog > 0) ? EMOJI_MAGOZOOLOGIST2 . $count_zoolog . '  ' : '');
+        $msg .= (($count_prof > 0) ? EMOJI_PROFESSOR . $count_prof . '  ' : '');
         $msg .= (($row['count_no_team'] > 0) ? TEAM_UNKNOWN . $row['count_no_team'] : '');
         $msg .= CR;
     } else {
-        $msg .= getTranslation('no_participants') . CR;
+        $msg .= CR . getTranslation('no_participants_yet') . CR;
     }
 
     return $msg;
@@ -3664,8 +3679,8 @@ function show_raid_poll_small($raid){
  * Raid list.
  * @param $update
  */
-function raid_list($update)
-{
+function raid_list($update){
+
     // Init empty rows array and query type.
     $rows = [];
 
@@ -3690,15 +3705,15 @@ function raid_list($update)
             "
             SELECT              raids.*,
                                 raids.id AS iqq_raid_id,
-                                gyms.lat, gyms.lon, gyms.address, gyms.gym_name, gyms.ex_gym,
+                                places.lat, places.lon, places.address, places.place_name, places.ex_gym,
 			        UNIX_TIMESTAMP(end_time)                        AS ts_end,
 			        UNIX_TIMESTAMP(start_time)                      AS ts_start,
 			        UNIX_TIMESTAMP(NOW())                           AS ts_now,
 			        UNIX_TIMESTAMP(end_time)-UNIX_TIMESTAMP(NOW())  AS t_left,
                                 users.name
 		    FROM        raids
-                    LEFT JOIN   gyms
-                    ON          raids.gym_id = gyms.id
+                    LEFT JOIN   places
+                    ON          raids.gym_id = places.id
                     LEFT JOIN   users
                     ON          raids.user_id = users.user_id
 		      WHERE     raids.id = {$iqq}
@@ -3716,7 +3731,7 @@ function raid_list($update)
             "
             SELECT              raids.*,
                                 raids.id AS iqq_raid_id,
-                                gyms.lat, gyms.lon, gyms.address, gyms.gym_name, gyms.ex_gym,
+                                places.lat, places.lon, places.address, places.place_name, places.ex_gym,
 			        UNIX_TIMESTAMP(end_time)                        AS ts_end,
 			        UNIX_TIMESTAMP(start_time)                      AS ts_start,
 			        UNIX_TIMESTAMP(NOW())                           AS ts_now,
@@ -3724,7 +3739,7 @@ function raid_list($update)
                                 users.name
 		    FROM        raids
                     LEFT JOIN   gyms
-                    ON          raids.gym_id = gyms.id
+                    ON          raids.gym_id = places.id
                     LEFT JOIN   users
                     ON          raids.user_id = users.user_id
 		      WHERE     raids.user_id = {$update['inline_query']['from']['id']}

@@ -258,7 +258,7 @@
     "EN":"Start",
     "IT":"",
     "PT-BR":"",
-    "RU":"Начало в2",
+    "RU":"Начало: ",
     "NO":"",
     "FR":"",
     "PL":""
@@ -588,7 +588,7 @@
     "EN":"/place <code>Place Name</code>",
     "IT":"",
     "PT-BR":"",
-    "RU":"Название места: /place <code>Название</code>",
+    "RU":"Название места: /place <code>название</code>",
     "NO":"",
     "FR":"",
     "PL":""
@@ -802,7 +802,7 @@
     "FR":"Pokémon enregistré",
     "PL":"Pokemon zapisany:"
   },
-  "pokedex_start":{  
+  "pokedex_start":{
     "NL":"Raid bazen lijst aanpassen",
     "DE":"Raid-Boss / Pokemon anzeigen und bearbeiten",
     "EN":"List and edit raid boss / pokemon",
