@@ -22,17 +22,18 @@ $answer = $rs->fetch_assoc();
 // Write to log.
 debug_log($answer);
 
-// User has voted before.
-if (!empty($answer)) {
-
-    // User profession update
-    my_query(
-        "
+// User profession update
+my_query(
+    "
     UPDATE    users
     SET       prof = '{$data['arg']}'
       WHERE   user_id = {$update['callback_query']['from']['id']}
     "
-    );
+);
+
+
+// User has voted before.
+if (!empty($answer)) {
 
     if($data['arg'] == '0'){
 
@@ -52,10 +53,21 @@ if (!empty($answer)) {
         $team = 'extra_' . $data['arg'];
 
         // Increase team extra people.
+//        my_query(
+//            "
+//            UPDATE    attendance
+//            SET       {$team} = {$team}+1
+//              WHERE   raid_id = {$data['id']}
+//                AND   user_id = {$update['callback_query']['from']['id']}
+//                AND   {$team} < 5
+//            "
+//        );
         my_query(
             "
             UPDATE    attendance
-            SET       {$team} = {$team}+1
+            SET       extra_auror = 0,
+                      extra_zoolog = 0,
+                      extra_prof = 0
               WHERE   raid_id = {$data['id']}
                 AND   user_id = {$update['callback_query']['from']['id']}
                 AND   {$team} < 5
@@ -67,9 +79,10 @@ if (!empty($answer)) {
     send_response_vote($update, $data);
 } else {
     // Send vote time first.
-    //Не пускает, если изначально не выбрали время
-    //send_vote_time_first($update);
 
+    //send_vote_time_first($update);//<-- Вот это не пускает, если изначально не выбрали время
+
+    //Добавляемся в бд
     my_query(
         "
         INSERT INTO   attendance

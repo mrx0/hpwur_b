@@ -93,10 +93,15 @@ $teams = array(
     'mystic'    => TEAM_B,
     'valor'     => TEAM_R,
     'instinct'  => TEAM_Y,
+    'unknown'   => TEAM_UNKNOWN,
+    'cancel'    => TEAM_CANCEL
+);
+
+$profs = array(
     'auror'     => EMOJI_AUROR,
     'zoolog'    => EMOJI_MAGOZOOLOGIST,
     'prof'      => EMOJI_PROFESSOR,
-    'unknown'   => TEAM_UNKNOWN,
+    'unknown'   => EMOJI_UNKNOWN,
     'cancel'    => TEAM_CANCEL
 );
 

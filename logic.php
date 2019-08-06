@@ -2289,8 +2289,9 @@ function keys_vote($raid)
         ];
     // Raid is still running.
     } else {
-	$timePerSlot = 60*RAID_SLOTS;
-	$timeBeforeEnd = 60*RAID_LAST_START;
+
+	    $timePerSlot = 60*RAID_SLOTS;
+	    $timeBeforeEnd = 60*RAID_LAST_START;
         $col = 1;
 
         // Attend raid at any time
@@ -3213,15 +3214,15 @@ function show_raid_poll($raid){
     // Raid has not started yet - adjust time left message
     if ($raid['ts_now'] < $raid['ts_start']) {
         // Now
-	$week_now = date('W', $raid['ts_now']);
-	$year_now = date('Y', $raid['ts_now']);
+        $week_now = date('W', $raid['ts_now']);
+        $year_now = date('Y', $raid['ts_now']);
 
         // Start
-	$week_start = date('W', $raid['ts_start']);
-	$weekday_start = date('N', $raid['ts_start']);
-	$day_start = date('j', $raid['ts_start']);
-	$month_start = date('m', $raid['ts_start']);
-	$year_start = date('Y', $raid['ts_start']);
+        $week_start = date('W', $raid['ts_start']);
+        $weekday_start = date('N', $raid['ts_start']);
+        $day_start = date('j', $raid['ts_start']);
+        $month_start = date('m', $raid['ts_start']);
+        $year_start = date('Y', $raid['ts_start']);
         $raid_day = getRaidTranslation('weekday_' . $weekday_start);
         $raid_month = getRaidTranslation('month_' . $month_start);
 
@@ -3368,10 +3369,10 @@ function show_raid_poll($raid){
               WHERE     raid_id = {$raid['id']}
                 AND     raid_done != 1
                 AND     cancel != 1
-              ORDER BY  attend_time,
-                        pokemon,
+              ORDER BY  arrived,
+                        attend_time,
                         users.prof,
-                        arrived
+                        users.level
             "
         );
 
@@ -3453,16 +3454,16 @@ function show_raid_poll($raid){
 //            $msg .= ($row['prof'] === NULL) ? ($GLOBALS['profs']['unknown'] . ' ') : ($GLOBALS['profs'][$row['prof']] . ' ');
 
             if ($row['prof'] === NULL){
-                $msg .= EMOJI_UNKNOWN;
+                $msg .= $GLOBALS['profs']['unknown'];
             }else{
                 if ($row['prof'] === 'auror') {
-                    $msg .= EMOJI_AUROR;
+                    $msg .= $GLOBALS['profs'][$row['prof']];
                 }
                 if ($row['prof'] === 'zoolog') {
-                    $msg .= EMOJI_MAGOZOOLOGIST;
+                    $msg .= $GLOBALS['profs'][$row['prof']];
                 }
                 if ($row['prof'] === 'prof') {
-                    $msg .= EMOJI_PROFESSOR;
+                    $msg .= $GLOBALS['profs'][$row['prof']];
                 }
             }
             $msg .= ($row['level'] == 0) ? ('<b>00</b> ') : (($row['level'] < 10) ? ('<b>0' . $row['level'] . '</b> ') : ('<b>' . $row['level'] . '</b> '));
@@ -3566,16 +3567,16 @@ function show_raid_poll($raid){
 //            $msg .= ($row['prof'] === NULL) ? ('└ ' . $GLOBALS['profs']['unknown'] . ' ') : ('└ ' . $GLOBALS['profs'][$row['prof']] . ' ');
 
             if ($row['prof'] === NULL){
-                $msg .= '└ ' . EMOJI_UNKNOWN;
+                $msg .= $GLOBALS['profs']['unknown'];
             }else{
                 if ($row['prof'] === 'auror') {
-                    $msg .= '└ ' . EMOJI_AUROR;
+                    $msg .= $GLOBALS['profs'][$row['prof']];
                 }
                 if ($row['prof'] === 'zoolog') {
-                    $msg .= '└ ' . EMOJI_MAGOZOOLOGIST;
+                    $msg .= $GLOBALS['profs'][$row['prof']];
                 }
                 if ($row['prof'] === 'prof') {
-                    $msg .= '└ ' . EMOJI_PROFESSOR;
+                    $msg .= $GLOBALS['profs'][$row['prof']];
                 }
             }
             $msg .= ($row['level'] == 0) ? ('<b>00</b> ') : (($row['level'] < 10) ? ('<b>0' . $row['level'] . '</b> ') : ('<b>' . $row['level'] . '</b> '));
@@ -3720,16 +3721,20 @@ function show_raid_poll_small($raid){
     // Add to message.
     if ($row['count'] > 0) {
         // Count by prof.
-        $count_auror = $row['count_auror'] + $row['extra_auror'];
-        $count_zoolog = $row['count_zoolog'] + $row['extra_zoolog'];
-        $count_prof = $row['count_prof'] + $row['extra_prof'];
+//        $count_auror = $row['count_auror'] + $row['extra_auror'];
+//        $count_zoolog = $row['count_zoolog'] + $row['extra_zoolog'];
+//        $count_prof = $row['count_prof'] + $row['extra_prof'];
+        $count_auror = $row['count_auror'];
+        $count_zoolog = $row['count_zoolog'];
+        $count_prof = $row['count_prof'];
 
         // Add to message.
-        $msg .= EMOJI_GROUP . '<b> ' . ($row['count'] + $row['extra_auror'] + $row['extra_zoolog'] + $row['extra_prof']) . '</b> — ';
+        //$msg .= EMOJI_GROUP . '<b> ' . ($row['count'] + $row['extra_auror'] + $row['extra_zoolog'] + $row['extra_prof']) . '</b> — ';
+        $msg .= EMOJI_GROUP . '<b> ' . ($row['count']) . '</b> — ';
         $msg .= (($count_auror > 0) ? EMOJI_AUROR . $count_auror . '  ' : '');
         $msg .= (($count_zoolog > 0) ? EMOJI_MAGOZOOLOGIST . $count_zoolog . '  ' : '');
         $msg .= (($count_prof > 0) ? EMOJI_PROFESSOR . $count_prof . '  ' : '');
-        $msg .= (($row['count_no_prof'] > 0) ? TEAM_UNKNOWN . $row['count_no_prof'] : '');
+        $msg .= (($row['count_no_prof'] > 0) ? EMOJI_UNKNOWN . $row['count_no_prof'] : '');
         $msg .= CR;
     } else {
         $msg .= CR . getTranslation('no_participants_yet') . CR;
