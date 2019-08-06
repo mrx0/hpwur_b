@@ -9,15 +9,37 @@ debug_log('vote_level()');
 // Get action.
 $action = $data['arg'];
 
-// Up-vote.
-if ($action == 'up') {
-    // Increase users level.
+// Standart level.
+if ($action == '0') {
+    // Standart users level.
     my_query(
         "
         UPDATE    users
-        SET       level = IF(level = 0, 30, level+1)
+        SET       level = 8
           WHERE   user_id = {$update['callback_query']['from']['id']}
-            AND   level < 40
+        "
+    );
+}
+
+// Up-vote.
+if ($action == 'up') {
+    // Increase users level.
+
+//    my_query(
+//        "
+//        UPDATE    users
+//        SET       level = IF(level = 0, 30, level+1)
+//          WHERE   user_id = {$update['callback_query']['from']['id']}
+//            AND   level < 40
+//        "
+//    );
+
+    my_query(
+        "
+        UPDATE    users
+        SET       level = IF(level = 0, 8, level+1)
+          WHERE   user_id = {$update['callback_query']['from']['id']}
+            AND   level < 20
         "
     );
 }

@@ -232,7 +232,7 @@ function answerInlineQuery($query_id, $contents)
 
             // Set the title.
             //$title = get_local_pokemon_name($row['pokemon']) . ' ' . getTranslation('from') . ' ' . unix2tz($row['ts_start'], $row['timezone'])  . ' ' . getTranslation('to') . ' ' . unix2tz($row['ts_end'], $row['timezone']);
-            $title = getTranslation('from') . ' ' . unix2tz($row['ts_start'], $row['timezone'], 'm.d.Y H:i')  . ' ' . getTranslation('to') . ' ' . unix2tz($row['ts_end'], $row['timezone']);
+            $title = getTranslation('from') . ' ' . unix2tz($row['ts_start'], $row['timezone'], 'd.m.Y H:i')  . ' ' . getTranslation('to') . ' ' . unix2tz($row['ts_end'], $row['timezone']);
 
             // Set the description.
             $desc = strval($row['gym_name']);

@@ -23,11 +23,11 @@ try {
 
     $query = '
         SELECT
-            raids.*, gyms.lat ,
-            gyms.lon ,
-            gyms.address ,
-            gyms.gym_name ,
-            gyms.ex_gym ,
+            raids.*, places.lat ,
+            places.lon ,
+            places.address ,
+            places.place_name ,
+            places.ex_gym ,
             users. NAME ,
             UNIX_TIMESTAMP(start_time) AS ts_start ,
             UNIX_TIMESTAMP(end_time) AS ts_end ,
@@ -35,7 +35,7 @@ try {
             UNIX_TIMESTAMP(end_time) - UNIX_TIMESTAMP(NOW()) AS t_left
         FROM
             raids
-        LEFT JOIN gyms ON raids.gym_id = gyms.id
+        LEFT JOIN places ON raids.gym_id = places.id
         LEFT JOIN users ON raids.user_id = users.user_id
         WHERE
             raids.end_time > NOW()
@@ -50,12 +50,12 @@ try {
     while ($row = $statement->fetch()) {
     
         // Set text and keys.
-        $text .= $row['gym_name'] . CR;
+        $text .= $row['place_name'] . CR;
         $raid_day = unix2tz($row['ts_start'], $row['timezone'], 'Y-m-d');
         $today = unix2tz($row['ts_now'], $row['timezone'], 'Y-m-d');
         $text .= get_local_pokemon_name($row['pokemon']) . SP . '—' . SP . (($raid_day == $today) ? '' : ($raid_day . ', ')) . unix2tz($row['ts_start'], $row['timezone']) . SP . getTranslation('to') . SP . unix2tz($row['ts_end'], $row['timezone']) . CR . CR;
         $keys[] = array(
-            'text'          => $row['gym_name'],
+            'text'          => $row['place_name'],
             'callback_data' => $row['id'] . ':raids_delete:0'
         );
 

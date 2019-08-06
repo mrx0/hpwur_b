@@ -10,10 +10,10 @@ debug_log('vote_team()');
 my_query(
     "
     UPDATE    users
-    SET    team = CASE
-             WHEN team = 'mystic' THEN 'valor'
-             WHEN team = 'valor' THEN 'instinct'
-             ELSE 'mystic'
+    SET    prof = CASE
+             WHEN prof = 'auror' THEN 'zoolog'
+             WHEN prof = 'zoolog' THEN 'prof'
+             ELSE 'auror'
            END
       WHERE   user_id = {$update['callback_query']['from']['id']}
     "

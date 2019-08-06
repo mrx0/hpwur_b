@@ -28,7 +28,7 @@ $languages = array(
 define('TEAM_B',            iconv('UCS-4LE', 'UTF-8', pack('V', 0x1F499)));
 define('TEAM_R',            iconv('UCS-4LE', 'UTF-8', pack('V', 0x2764)));
 define('TEAM_Y',            iconv('UCS-4LE', 'UTF-8', pack('V', 0x1F49B)));
-define('TEAM_CANCEL',       iconv('UCS-4LE', 'UTF-8', pack('V', 0x1F494)));
+define('TEAM_CANCEL',       iconv('UCS-4LE', 'UTF-8', pack('V', 0x274C)));
 define('TEAM_DONE',         iconv('UCS-4LE', 'UTF-8', pack('V', 0x1F4AA)));
 define('TEAM_UNKNOWN',      iconv('UCS-4LE', 'UTF-8', pack('V', 0x1F680)));
 define('EMOJI_REFRESH',     iconv('UCS-4LE', 'UTF-8', pack('V', 0x1F504)));
@@ -62,6 +62,8 @@ define('EMOJI_PAPERCLIP',       iconv('UCS-4LE', 'UTF-8', pack('V', 0x1F4CE)));
 define('EMOJI_BEER',            iconv('UCS-4LE', 'UTF-8', pack('V', 0x1F37A)));
 //fuck
 define('EMOJI_FUCK',            iconv('UCS-4LE', 'UTF-8', pack('V', 0x1F595)));
+//unknown
+define('EMOJI_UNKNOWN',         iconv('UCS-4LE', 'UTF-8', pack('V', 0x1F464)));
 
 
 // Weather Icons.
@@ -92,7 +94,7 @@ $teams = array(
     'valor'     => TEAM_R,
     'instinct'  => TEAM_Y,
     'auror'     => EMOJI_AUROR,
-    'zoolog'    => EMOJI_MAGOZOOLOGIST2,
+    'zoolog'    => EMOJI_MAGOZOOLOGIST,
     'prof'      => EMOJI_PROFESSOR,
     'unknown'   => TEAM_UNKNOWN,
     'cancel'    => TEAM_CANCEL

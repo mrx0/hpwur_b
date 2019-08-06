@@ -214,7 +214,7 @@
     "EN":"Vote updated",
     "IT":"Voto aggiornato",
     "PT-BR":"Votos atualizados",
-    "RU":"Голосование обновлено",
+    "RU":"Обновлено",
     "NO":"Stemme oppdatert",
     "FR":"Mise à jour du vote",
     "PL":"Głos zaktualizowany"
@@ -1116,7 +1116,7 @@
     "EN":"Change raid duration",
     "IT":"TRANSLATE",
     "PT-BR":"Alterar duração da reide",
-    "RU":"TRANSLATE",
+    "RU":"Изм. продолжительность",
     "NO":"TRANSLATE",
     "FR":"Modifier la durée du raid",
     "PL":"Zmień czas trwania Rajdu"
