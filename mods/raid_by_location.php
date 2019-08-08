@@ -75,7 +75,8 @@ debug_log('Place Name: ' . $place_name);
 
 //$place_first_letter = 0;
 
-$keys = raid_edit_opportunity_keys($place_id, $place_first_letter);
+//$keys = raid_edit_opportunity_keys($place_id, $place_first_letter);
+$keys = raid_edit_days_keys($place_id, $place_first_letter);
 
 // No keys found.
 if (!$keys) {
@@ -120,7 +121,7 @@ if (!$keys) {
 // Answer location message.
 if(isset($update['message']['location'])) {
     // Build message.
-    $msg = getTranslation('create_raid') . ': <i>' . $address . '</i>';
+    $msg = getTranslation('create_raid') . ':'.CR. '<i>' . $address . '</i>'.CR2.getTranslation('select_date');
 
     // Send message.
     send_message($update['message']['chat']['id'], $msg, $keys, ['reply_markup' => ['selective' => true, 'one_time_keyboard' => true]]);
@@ -134,7 +135,11 @@ if(isset($update['message']['location'])) {
     answerCallbackQuery($update['callback_query']['id'], $callback_response);
 
     // Edit the message.
-    edit_message($update, getTranslation('select_place_name'), $keys);
+    edit_message($update, getTranslation('select_date'), $keys);
+
+    // Debug
+//    debug_log('$update: ');
+//    debug_log($update);
 }
 
 // Exit.

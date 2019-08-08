@@ -8,7 +8,7 @@ define('TRANSLATION_PATH', ROOT_PATH . '/lang');
 
 // Carriage return.
 define('CR',  "\n");
-define('CR2', "\n");
+define('CR2', "\n\n");
 // Space.
 define('SP', " ");
 
@@ -32,7 +32,7 @@ define('TEAM_CANCEL',       iconv('UCS-4LE', 'UTF-8', pack('V', 0x274C)));
 define('TEAM_DONE',         iconv('UCS-4LE', 'UTF-8', pack('V', 0x1F4AA)));
 define('TEAM_UNKNOWN',      iconv('UCS-4LE', 'UTF-8', pack('V', 0x1F680)));
 define('EMOJI_REFRESH',     iconv('UCS-4LE', 'UTF-8', pack('V', 0x1F504)));
-define('EMOJI_HERE',        iconv('UCS-4LE', 'UTF-8', pack('V', 0x1F4CD)));
+define('EMOJI_HERE',        iconv('UCS-4LE', 'UTF-8', pack('V', 0x2705)));
 define('EMOJI_LATE',        iconv('UCS-4LE', 'UTF-8', pack('V', 0x1F441)));
 define('EMOJI_GROUP',       iconv('UCS-4LE', 'UTF-8', pack('V', 0x1F465)));
 define('EMOJI_WARN',        iconv('UCS-4LE', 'UTF-8', pack('V', 0x26A0)));

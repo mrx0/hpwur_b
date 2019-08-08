@@ -434,7 +434,7 @@
     "EN":"Create Raid in",
     "IT":"Crea Raid in",
     "PT-BR":"Criar raid em",
-    "RU":"Создать рейд в",
+    "RU":"Создаём рейд",
     "NO":"Opprett raid i",
     "FR":"Créer un raid",
     "PL":"Utwórz Rajd w"
@@ -659,7 +659,29 @@
     "FR":"Sélectionne la <b>date</b> du raid",
     "PL":"Wybierz <b>date</b> Rajdu"
   },
-  "raid_select_hour":{  
+  "select_date":{
+    "NL":"",
+    "DE":"",
+    "EN":"Select the <b>date</b>",
+    "IT":"",
+    "PT-BR":"",
+    "RU":"Выберите <b>дату</b>:",
+    "NO":":",
+    "FR":"",
+    "PL":""
+  },
+  "selected_date":{
+    "NL":"",
+    "DE":"",
+    "EN":"",
+    "IT":"",
+    "PT-BR":"",
+    "RU":"Выбрана дата:",
+    "NO":":",
+    "FR":"",
+    "PL":""
+  },
+  "raid_select_hour":{
     "NL":"Selecteer het <b>uur</b> van de raid:",
     "DE":"<b>Stunde</b> des Raids auswählen:",
     "EN":"Select the <b>hour</b> of the raid:",
@@ -698,7 +720,7 @@
     "EN":"When will <b>begin</b>?",
     "IT":"",
     "PT-BR":"",
-    "RU":"<b>Во сколько</b> начало?",
+    "RU":"Во сколько начало?",
     "NO":"",
     "FR":"",
     "PL":""
@@ -1483,7 +1505,18 @@
     "FR":"A tout moment",
     "PL":"W każdej chwili"
   },
-  "any_pokemon":{  
+  "composition":{
+    "NL":"",
+    "DE":"",
+    "EN":"Composition:",
+    "IT":"",
+    "PT-BR":"",
+    "RU":"Состав:",
+    "NO":"",
+    "FR":"",
+    "PL":""
+  },
+  "any_pokemon":{
     "NL":"Elke raid baas",
     "DE":"Jeder Raid-Boss",
     "EN":"Any raid boss",
@@ -1493,6 +1526,39 @@
     "NO":"Uansett raidboss",
     "FR":"Peu importe le boss",
     "PL":"Obojętnie jaki Boss Rajdu"
+  },
+  "prof_level":{
+    "NL":"",
+    "DE":"",
+    "EN":"Prof. lvl 8",
+    "IT":"",
+    "PT-BR":"",
+    "RU":"Ур. проф. 8",
+    "NO":"",
+    "FR":"",
+    "PL":""
+  },
+  "prof_level_up":{
+    "NL":"",
+    "DE":"",
+    "EN":"lvl +",
+    "IT":"",
+    "PT-BR":"",
+    "RU":"ур. +",
+    "NO":"",
+    "FR":"",
+    "PL":""
+  },
+  "prof_level_down":{
+    "NL":"",
+    "DE":"",
+    "EN":"- lvl",
+    "IT":"",
+    "PT-BR":"",
+    "RU":"- ур.",
+    "NO":"",
+    "FR":"",
+    "PL":""
   }
 }
 

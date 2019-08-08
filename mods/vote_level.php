@@ -39,7 +39,7 @@ if ($action == 'up') {
         UPDATE    users
         SET       level = IF(level = 0, 8, level+1)
           WHERE   user_id = {$update['callback_query']['from']['id']}
-            AND   level < 20
+            AND   level < 14
         "
     );
 }
@@ -52,7 +52,7 @@ if ($action == 'down') {
         UPDATE    users
         SET       level = level-1
           WHERE   user_id = {$update['callback_query']['from']['id']}
-            AND   level > 5
+            AND   level > 0
         "
     );
 }

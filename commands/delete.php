@@ -35,7 +35,7 @@ try {
             UNIX_TIMESTAMP(end_time) - UNIX_TIMESTAMP(NOW()) AS t_left
         FROM
             raids
-        LEFT JOIN places ON raids.gym_id = places.id
+        LEFT JOIN places ON raids.place_id = places.id
         LEFT JOIN users ON raids.user_id = users.user_id
         WHERE
             raids.end_time > NOW()

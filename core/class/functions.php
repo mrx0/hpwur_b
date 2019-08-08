@@ -768,3 +768,19 @@ function getTranslation($text, $override = false, $override_language = USERLANGU
 
     return $translation;
 }
+
+
+//Приводим месяц, день, часы, минуты к виду 01 02 09 ...
+function dateTransformation ($data){
+
+    if ((int)$data < 10) {
+        if (strrpos($data, '0') === false) {
+            $data = '0' . $data;
+        }
+    }
+    if (strrpos($data, '0') !== false) {
+        $data = join(array_unique(preg_split("//u", $data)));
+    }
+
+    return $data;
+}

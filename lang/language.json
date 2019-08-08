@@ -5,7 +5,7 @@
     "EN":"Monday",
     "IT":"Lunedì",
     "PT-BR":"segunda-feira",
-    "RU":"Понедельник",
+    "RU":"ПН",
     "NO":"Mandag",
     "FR":"Lundi",
     "PL":"Poniedziałek"
@@ -16,7 +16,7 @@
     "EN":"Tuesday",
     "IT":"Martedì",
     "PT-BR":"terça-feira",
-    "RU":"Вторник",
+    "RU":"ВТ",
     "NO":"Tirsdag",
     "FR":"Mardi",
     "PL":"Wtorek"
@@ -27,7 +27,7 @@
     "EN":"Wednesday",
     "IT":"Mercoledì",
     "PT-BR":"quarta-feira",
-    "RU":"Среда",
+    "RU":"СР",
     "NO":"Onsdag",
     "FR":"Mercredi",
     "PL":"Środa"
@@ -38,7 +38,7 @@
     "EN":"Thursday",
     "IT":"Giovedì",
     "PT-BR":"quinta-feira",
-    "RU":"Четверг",
+    "RU":"ЧТ",
     "NO":"Torsdag",
     "FR":"Jeudi",
     "PL":"Czwartek"
@@ -49,7 +49,7 @@
     "EN":"Friday",
     "IT":"Venerdì",
     "PT-BR":"sexta-feira",
-    "RU":"Пятница",
+    "RU":"ПТ",
     "NO":"Fredag",
     "FR":"Vendredi",
     "PL":"Piątek"
@@ -60,18 +60,18 @@
     "EN":"Saturday",
     "IT":"Sabato",
     "PT-BR":"sábado",
-    "RU":"Суббота",
+    "RU":"СБ",
     "NO":"Lørdag",
     "FR":"Samedi",
     "PL":"Sobota"
   },
-  "weekday_7":{  
+  "weekday_0":{
     "NL":"Zondag",
     "DE":"Sonntag",
     "EN":"Sunday",
     "IT":"Domenica",
     "PT-BR":"domingo",
-    "RU":"Воскресение",
+    "RU":"ВС",
     "NO":"Søndag",
     "FR":"Dimanche",
     "PL":"Niedziela"
