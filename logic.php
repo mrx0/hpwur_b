@@ -3017,7 +3017,6 @@ function get_overview($update, $chats_active, $raids_active, $action = 'refresh'
             // Is the raid in the same week?
             if($week_now == $week_start && $date_now == $date_raid) {
                 // Output: Raid egg opens up 17:00
-                // !!! хз пока где
                 $msg .= $pokemon . ' — <b>' . getRaidTranslation('raid_start_time') . ' ' . unix2tz($start_time, $tz);
             } else {
                 if($days_to_raid > 6) {
