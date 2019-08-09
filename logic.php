@@ -3340,7 +3340,7 @@ function show_raid_poll($raid){
             /*AND         attend_time IS NOT NULL*/
             AND         raid_done != 1
             AND         cancel != 1
-          GROUP BY      prof
+          /*GROUP BY      prof*/
           ORDER BY      prof,
                         level
         "
@@ -3408,6 +3408,25 @@ function show_raid_poll($raid){
 //        debug_log('$cnt_pokemon');
 //        debug_log($cnt_pokemon);
 
+
+        /*Состав -->*/
+        $msg .= CR . '<b>' . getRaidTranslation('composition'). '</b>' . ' [' . $cnt_all . ']';
+
+        $count_auror = $cnt['count_auror'];
+        $count_zoolog = $cnt['count_zoolog'];
+        $count_prof = $cnt['count_prof'] ;
+        //$count_late = $cnt['count_late'];
+
+        // Add to message.
+        $msg .= ' — ';
+        $msg .= (($count_auror > 0) ? EMOJI_AUROR . $count_auror . '  ' : '');
+        $msg .= (($count_zoolog > 0) ? EMOJI_MAGOZOOLOGIST . $count_zoolog . '  ' : '');
+        $msg .= (($count_prof > 0) ? EMOJI_PROFESSOR . $count_prof . '  ' : '');
+        $msg .= (($cnt['count_no_prof'] > 0) ? TEAM_UNKNOWN . $cnt['count_no_prof'] . '  ' : '');
+
+        $msg .= CR;
+        /*<-- Состав*/
+
         // Get attendance for this raid.
         $rs_att = my_query(
             "
@@ -3428,46 +3447,46 @@ function show_raid_poll($raid){
         );
 
         // Init previous attend time and pokemon
-        $previous_att_time = 'FIRST_RUN';
-        $previous_pokemon = 'FIRST_RUN';
+//        $previous_att_time = 'FIRST_RUN';
+//        $previous_pokemon = 'FIRST_RUN';
 
         // For each attendance.
         while ($row = $rs_att->fetch_assoc()) {
             // Set current attend time and pokemon
-            $current_att_time = $row['ts_att'];
-            $current_pokemon = $row['pokemon'];
+//            $current_att_time = $row['ts_att'];
+//            $current_pokemon = $row['pokemon'];
 
             // Add hint for late attendances.
-            if(RAID_LATE_MSG && $previous_att_time == 'FIRST_RUN' && $cnt_latewait > 0) {
-                $late_wait_msg = str_replace('RAID_LATE_TIME', RAID_LATE_TIME, getRaidTranslation('late_participants_wait'));
-                $msg .= CR . EMOJI_LATE . '<i>' . getRaidTranslation('late_participants') . ' ' . $late_wait_msg . '</i>' . CR;
-            }
+//            if(RAID_LATE_MSG && $previous_att_time == 'FIRST_RUN' && $cnt_latewait > 0) {
+//                $late_wait_msg = str_replace('RAID_LATE_TIME', RAID_LATE_TIME, getRaidTranslation('late_participants_wait'));
+//                $msg .= CR . EMOJI_LATE . '<i>' . getRaidTranslation('late_participants') . ' ' . $late_wait_msg . '</i>' . CR;
+//            }
 
             // Add section/header for time
-            if($previous_att_time != $current_att_time) {
+//            if($previous_att_time != $current_att_time) {
                 // Add to message.
                 //$count_att_time_extrapeople = $cnt[$current_att_time]['extra_auror'] + $cnt[$current_att_time]['extra_zoolog'] + $cnt[$current_att_time]['extra_prof'];
                 //$msg .= CR . '<b>' . (($current_att_time == 0) ? (getRaidTranslation('composition')) : (unix2tz($current_att_time, $raid['timezone']))) . '</b>' . ' [' . ($cnt[$current_att_time]['count'] + $count_att_time_extrapeople) . ']';
-                $msg .= CR . '<b>' . (($current_att_time == 0) ? (getRaidTranslation('composition')) : (unix2tz($current_att_time, $raid['timezone']))) . '</b>' . ' [' . $cnt_all . ']';
-
-                // Add attendance counts by prof.
-                //if ($cnt[$current_att_time]['count'] > 0) {
-                    // Attendance counts by prof.
-                    $count_auror = $cnt['count_auror'] + $cnt['extra_auror'];
-                    $count_zoolog = $cnt['count_zoolog'] + $cnt['extra_zoolog'];
-                    $count_prof = $cnt['count_prof'] + $cnt['extra_prof'];
-                    $count_late = $cnt['count_late'];
-
-                    // Add to message.
-                    $msg .= ' — ';
-                    $msg .= (($count_auror > 0) ? EMOJI_AUROR . $count_auror . '  ' : '');
-                    $msg .= (($count_zoolog > 0) ? EMOJI_MAGOZOOLOGIST . $count_zoolog . '  ' : '');
-                    $msg .= (($count_prof > 0) ? EMOJI_PROFESSOR . $count_prof . '  ' : '');
-                    $msg .= (($cnt['count_no_prof'] > 0) ? TEAM_UNKNOWN . $cnt['count_no_prof'] . '  ' : '');
-                    $msg .= (($count_late > 0) ? EMOJI_LATE . $count_late . '  ' : '');
+//                $msg .= CR . '<b>' . getRaidTranslation('composition'). '</b>' . ' [' . $cnt_all . ']';
+//
+//                // Add attendance counts by prof.
+//                //if ($cnt[$current_att_time]['count'] > 0) {
+//                    // Attendance counts by prof.
+//                    $count_auror = $cnt['count_auror'];
+//                    $count_zoolog = $cnt['count_zoolog'];
+//                    $count_prof = $cnt['count_prof'] ;
+//                    //$count_late = $cnt['count_late'];
+//
+//                    // Add to message.
+//                    $msg .= ' — ';
+//                    $msg .= (($count_auror > 0) ? EMOJI_AUROR . $count_auror . '  ' : '');
+//                    $msg .= (($count_zoolog > 0) ? EMOJI_MAGOZOOLOGIST . $count_zoolog . '  ' : '');
+//                    $msg .= (($count_prof > 0) ? EMOJI_PROFESSOR . $count_prof . '  ' : '');
+//                    $msg .= (($cnt['count_no_prof'] > 0) ? TEAM_UNKNOWN . $cnt['count_no_prof'] . '  ' : '');
+                    //$msg .= (($count_late > 0) ? EMOJI_LATE . $count_late . '  ' : '');
                 //}
-                $msg .= CR;
-            }
+//                $msg .= CR;
+//            }
 
             // Add section/header for pokemon
 //            if($previous_pokemon != $current_pokemon || $previous_att_time != $current_att_time) {
