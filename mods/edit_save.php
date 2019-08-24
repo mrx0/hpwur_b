@@ -1,4 +1,5 @@
 <?php
+//Показывается в конце, когда всё сохранено
 // Write to log.
 debug_log('edit_save()');
 
@@ -15,11 +16,13 @@ $id = $data['id'];
 // Set the arg.
 $arg = $data['arg'];
 
+debug_log('Arg: '.$data['arg']);
+
 // Set the user id.
 $userid = $update['callback_query']['from']['id'];
 
 // Update only if time is not equal to RAID_POKEMON_DURATION_SHORT
-if($arg != RAID_POKEMON_DURATION_SHORT) {
+if($arg != RAID_DURATION_SHORT) {
 
     // Build query.
     my_query(
@@ -48,18 +51,18 @@ if ($update['callback_query']['message']['chat']['type'] == 'private') {
 
     // Check access level prior allowing to change raid time
     $admin_access = bot_access_check($update, BOT_ADMINS, true);
-    if($admin_access && $arg == RAID_POKEMON_DURATION_SHORT) {
-        // Add time change to keys.
-        $keys_time = [
-            [
-                [
-                    'text'          => getTranslation('change_raid_duration'),
-                    'callback_data' => $id . ':edit_time:0,0,more,1'
-                ]
-            ]
-        ];
-        $keys = array_merge($keys, $keys_time);
-    }
+//    if($admin_access && $arg == RAID_DURATION_SHORT) {
+//        // Add time change to keys.
+//        $keys_time = [
+//            [
+//                [
+//                    'text'          => getTranslation('change_raid_duration'),
+//                    'callback_data' => $id . ':edit_time:0,0,more,1'
+//                ]
+//            ]
+//        ];
+//        $keys = array_merge($keys, $keys_time);
+//    }
 
     // Add keys to share.
     $keys_share = share_raid_keys($id, $userid);
@@ -69,21 +72,28 @@ if ($update['callback_query']['message']['chat']['type'] == 'private') {
     $raid = get_raid($data['id']);
 
     // Build message string.
+    // Итоговое сообщение в боте о том, что реёд готов
     $msg = '';
-    $msg .= getTranslation('raid_saved') . CR;
+    //$msg .= getTranslation('raid_saved') . CR;
+    $msg .= getTranslation('raid_saved') . ' ';
     $msg .= show_raid_poll_small($raid) . CR;
 
     // User_id tag.
-    $user_id_tag = '#' . $update['callback_query']['from']['id'];
+    //$user_id_tag = '#' . $update['callback_query']['from']['id'];
 
-    // Gym Name
-    if(!empty($raid['gym_name']) && ($raid['gym_name'] != $user_id_tag)) {
-	$msg .= getTranslation('set_gym_team') . CR2;
-    } else {
-        $msg .= getTranslation('set_gym_name_and_team') . CR2;
-        $msg .= getTranslation('set_gym_name_command') . CR;
-    }
-    $msg .= getTranslation('set_gym_team_command');
+    // Place Name
+//    if(!empty($raid['place_name']) && ($raid['place_name'] != $user_id_tag)) {
+//	$msg .= getTranslation('set_gym_team') . CR2;
+//    } else {
+//        $msg .= getTranslation('set_place_name_and_team') . CR2;
+//        $msg .= getTranslation('set_place_name_command') . CR;
+//    }
+
+    //!!!Теперь так или иначе сообщать о возможности менять имя места и тп
+    $msg .= getTranslation('set_place_name_and_team') . CR2;
+
+    $msg .= getTranslation('set_place_name_command') . CR;
+    //$msg .= getTranslation('set_gym_team_command');
 
     // Build callback message string.
     $callback_response = getTranslation('end_time') . $data['arg'] . ' ' . getTranslation('minutes');

@@ -5,7 +5,7 @@
     "EN":"Alolan",
     "IT":"TRANSLATE",
     "PT-BR":"de Alola",
-    "RU":"TRANSLATE",
+    "RU":"Alola",
     "NO":"TRANSLATE",
     "FR":"TRANSLATE",
     "PL":"Alolan"
@@ -16,7 +16,7 @@
     "EN":"Attack",
     "IT":"TRANSLATE",
     "PT-BR":"Ataque",
-    "RU":"TRANSLATE",
+    "RU":"Атака",
     "NO":"TRANSLATE",
     "FR":"TRANSLATE",
     "PL":"Attack"
@@ -27,7 +27,7 @@
     "EN":"Defense",
     "IT":"TRANSLATE",
     "PT-BR":"Defesa",
-    "RU":"TRANSLATE",
+    "RU":"Защита",
     "NO":"TRANSLATE",
     "FR":"TRANSLATE",
     "PL":"Defense"
@@ -38,7 +38,7 @@
     "EN":"Speed",
     "IT":"TRANSLATE",
     "PT-BR":"Velocidade",
-    "RU":"TRANSLATE",
+    "RU":"Скорость",
     "NO":"TRANSLATE",
     "FR":"TRANSLATE",
     "PL":"Speed"
@@ -49,7 +49,7 @@
     "EN":"Plant",
     "IT":"TRANSLATE",
     "PT-BR":"Planta",
-    "RU":"TRANSLATE",
+    "RU":"Plant",
     "NO":"TRANSLATE",
     "FR":"TRANSLATE",
     "PL":"Plant"
@@ -60,7 +60,7 @@
     "EN":"Sandy",
     "IT":"Areia",
     "PT-BR":"TRANSLATE",
-    "RU":"TRANSLATE",
+    "RU":"Sandy",
     "NO":"TRANSLATE",
     "FR":"TRANSLATE",
     "PL":"Sandy"
@@ -71,7 +71,7 @@
     "EN":"Trash",
     "IT":"TRANSLATE",
     "PT-BR":"Lixo",
-    "RU":"TRANSLATE",
+    "RU":"Trash",
     "NO":"TRANSLATE",
     "FR":"TRANSLATE",
     "PL":"Trash"
@@ -82,7 +82,7 @@
     "EN":"Overcast",
     "IT":"TRANSLATE",
     "PT-BR":"Negativo",
-    "RU":"TRANSLATE",
+    "RU":"Overcast",
     "NO":"TRANSLATE",
     "FR":"TRANSLATE",
     "PL":"Overcast"
@@ -93,7 +93,7 @@
     "EN":"Sunny",
     "IT":"TRANSLATE",
     "PT-BR":"Positivo",
-    "RU":"TRANSLATE",
+    "RU":"Sunny",
     "NO":"TRANSLATE",
     "FR":"TRANSLATE",
     "PL":"Sunny"
@@ -104,7 +104,7 @@
     "EN":"East",
     "IT":"TRANSLATE",
     "PT-BR":"Leste",
-    "RU":"TRANSLATE",
+    "RU":"East",
     "NO":"TRANSLATE",
     "FR":"TRANSLATE",
     "PL":"East"
@@ -115,7 +115,7 @@
     "EN":"West",
     "IT":"TRANSLATE",
     "PT-BR":"Oeste",
-    "RU":"TRANSLATE",
+    "RU":"West",
     "NO":"TRANSLATE",
     "FR":"TRANSLATE",
     "PL":"West"
@@ -126,7 +126,7 @@
     "EN":"Fan",
     "IT":"TRANSLATE",
     "PT-BR":"Ventilador",
-    "RU":"TRANSLATE",
+    "RU":"Fan",
     "NO":"TRANSLATE",
     "FR":"TRANSLATE",
     "PL":"Fan"
@@ -137,7 +137,7 @@
     "EN":"Frost",
     "IT":"TRANSLATE",
     "PT-BR":"Congelado",
-    "RU":"TRANSLATE",
+    "RU":"Frost",
     "NO":"TRANSLATE",
     "FR":"TRANSLATE",
     "PL":"Frost"
@@ -148,7 +148,7 @@
     "EN":"Heat",
     "IT":"TRANSLATE",
     "PT-BR":"Calor",
-    "RU":"TRANSLATE",
+    "RU":"Heat",
     "NO":"TRANSLATE",
     "FR":"TRANSLATE",
     "PL":"Heat"
@@ -159,7 +159,7 @@
     "EN":"Mow",
     "IT":"TRANSLATE",
     "PT-BR":"Cortador",
-    "RU":"TRANSLATE",
+    "RU":"Mow",
     "NO":"TRANSLATE",
     "FR":"TRANSLATE",
     "PL":"Mow"
@@ -170,7 +170,7 @@
     "EN":"Wash",
     "IT":"TRANSLATE",
     "PT-BR":"Lavagem",
-    "RU":"TRANSLATE",
+    "RU":"Wash",
     "NO":"TRANSLATE",
     "FR":"TRANSLATE",
     "PL":"Wash"
@@ -181,7 +181,7 @@
     "EN":"Altered",
     "IT":"TRANSLATE",
     "PT-BR":"Alterado",
-    "RU":"TRANSLATE",
+    "RU":"Altered",
     "NO":"TRANSLATE",
     "FR":"TRANSLATE",
     "PL":"Altered"
@@ -192,7 +192,7 @@
     "EN":"Origin",
     "IT":"TRANSLATE",
     "PT-BR":"Original",
-    "RU":"TRANSLATE",
+    "RU":"Origin",
     "NO":"TRANSLATE",
     "FR":"TRANSLATE",
     "PL":"Origin"
@@ -203,7 +203,7 @@
     "EN":"Land",
     "IT":"TRANSLATE",
     "PT-BR":"Terrestre",
-    "RU":"TRANSLATE",
+    "RU":"Land",
     "NO":"TRANSLATE",
     "FR":"TRANSLATE",
     "PL":"Land"

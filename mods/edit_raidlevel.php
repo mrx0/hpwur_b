@@ -6,18 +6,19 @@ debug_log('edit_raidlevel()');
 //debug_log($update);
 //debug_log($data);
 
-// Get gym data via ID in arg
-$gym_id = $data['arg'];
-$gym = get_gym($gym_id);
+// Get place data via ID in arg
+$place_id = $data['arg'];
+$place = get_place($place_id);
 
 // Back key id, action and arg
 $back_id = 0;
 $back_action = 'raid_by_gym';
 $back_arg = $data['id'];
-$gym_first_letter = $back_arg;
+$place_first_letter = $back_arg;
 
 // Active raid?
-$duplicate_id = active_raid_duplication_check($gym_id);
+$duplicate_id = active_raid_duplication_check($place_id);
+
 if ($duplicate_id > 0) {
     $keys = [];
     $raid_id = $duplicate_id;
@@ -58,12 +59,15 @@ if ($duplicate_id > 0) {
 
 // Check access - user must be admin for raid_level X
 $admin_access = bot_access_check($update, BOT_ADMINS, true);
+
 if ($admin_access) {
     // Get the keys.
-    $keys = raid_edit_raidlevel_keys($gym_id, $gym_first_letter, true);
+    //$keys = raid_edit_raidlevel_keys($place_id, $place_first_letter, true);
+    $keys = raid_edit_opportunity_keys($place_id, $place_first_letter, true);
 } else {
     // Get the keys.
-    $keys = raid_edit_raidlevel_keys($gym_id, $gym_first_letter);
+    //$keys = raid_edit_raidlevel_keys($place_id, $place_first_letter);
+    $keys = raid_edit_opportunity_keys($place_id, $place_first_letter);
 }
 
 // No keys found.
@@ -80,15 +84,15 @@ if (!$keys) {
 } else {
     // Add navigation keys.
     $nav_keys = [];
-    $nav_keys[] = universal_inner_key($nav_keys, $back_id, $back_action, $back_arg, getTranslation('back'));
-    $nav_keys[] = universal_inner_key($nav_keys, $gym_id, 'exit', '2', getTranslation('abort'));
+    //$nav_keys[] = universal_inner_key($nav_keys, $back_id, $back_action, $back_arg, getTranslation('back'));
+    $nav_keys[] = universal_inner_key($nav_keys, $place_id, 'exit', '2', getTranslation('abort'));
     $nav_keys = inline_key_array($nav_keys, 2);
     // Merge keys.
     $keys = array_merge($keys, $nav_keys);
 }
 
 // Build message.
-$msg = getTranslation('create_raid') . ': <i>' . $gym['address'] . '</i>';
+$msg = getTranslation('create_raid') . ': <i>' . $place['address'] . '</i>';
 
 // Build callback message string.
 $callback_response = getTranslation('gym_saved');
@@ -97,7 +101,8 @@ $callback_response = getTranslation('gym_saved');
 answerCallbackQuery($update['callback_query']['id'], $callback_response);
 
 // Edit the message.
-edit_message($update, $msg . CR . getTranslation('select_raid_level') . ':', $keys);
+//edit_message($update, $msg . CR . getTranslation('select_raid_level') . ':', $keys);
+edit_message($update, $msg . CR . getTranslation('select_raid_reason') . ':', $keys);
 
 // Exit.
 exit();
