@@ -91,7 +91,7 @@ function send_keyboard($chat_id){
 
     //Встроенная клавиатура
     $keyboard = array(
-        "keyboard" => [[["text" => "Голосовать"], ["text" => "Помощь"]]],
+        "keyboard" => [[["text" => "Кнопка 1"], ["text" => "Кнопка 2"]]],
         "one_time_keyboard" => false,
         "resize_keyboard" => true
     );

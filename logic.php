@@ -1830,10 +1830,16 @@ function share_raid_keys($raid_id, $user_id)
     if ((SHARE_MODERATORS == true && $mod == 1) || SHARE_USERS == true) {
         debug_log('Adding general share key to inline keys');
         // Set the keys.
+//        $keys[] = [
+//            [
+//                'text'                => getTranslation('share'),
+//                'switch_inline_query' => basename(ROOT_PATH) . ':' . strval($raid_id)
+//            ]
+//        ];
         $keys[] = [
             [
                 'text'                => getTranslation('share'),
-                'switch_inline_query' => basename(ROOT_PATH) . ':' . strval($raid_id)
+                'switch_inline_query' => ':' . strval($raid_id)
             ]
         ];
     }
@@ -3838,7 +3844,7 @@ function show_raid_poll_small($raid){
                         sum(extra_prof)             AS extra_prof,*/
 /*                        sum(IF(late = '1', (late = '1') + extra_auror + extra_zoolog + extra_prof, 0)) AS count_late,*/
 /*                        sum(pokemon = '0')                   AS count_any_pokemon,
-                        sum(pokemon = '{$raid['pokemon']}')  AS count_raid_pokemon,*/
+                        sum(pokemon = '')  AS count_raid_pokemon,*/
 /*                        attend_time*/
         FROM            attendance
         LEFT JOIN       users

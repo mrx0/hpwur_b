@@ -35,14 +35,17 @@ $pokemon_time = explode(',', $data['arg']);
 $opt_arg = 'new-raid';
 $slot_switch = 0;
 if($count_arg == 1) {
-    $pokemon_id = $pokemon_time[0];
+    //$pokemon_id = $pokemon_time[0];
+    $old_duration = $pokemon_time[0];
     $starttime = $pokemon_time[1];
 } else if($count_arg == 2) {
-    $pokemon_id = $pokemon_time[0]; 
+    //$pokemon_id = $pokemon_time[0];
+    $old_duration = $pokemon_time[0];
     $starttime = $pokemon_time[1];
     $opt_arg = $pokemon_time[2];
 } else if($count_arg == 3) {
-    $pokemon_id = $pokemon_time[0];
+    //$pokemon_id = $pokemon_time[0];
+    $old_duration = $pokemon_time[0];
     $starttime = $pokemon_time[1];
     $opt_arg = $pokemon_time[2];
     $slot_switch = $pokemon_time[3];
@@ -51,6 +54,7 @@ if($count_arg == 1) {
 // Write to log.
 debug_log('count_id: ' . $count_id);
 debug_log('count_arg: ' . $count_arg);
+debug_log('old_duration: ' . $old_duration);
 debug_log('opt_arg: ' . $opt_arg);
 debug_log('slot_switch: ' . $slot_switch);
 
@@ -156,19 +160,27 @@ $keys = [];
 // Raid pokemon duration short or 1 Minute / 5 minute time slots
 if($opt_arg == 'more') {
     if ($slot_switch == 0) {
-	$slotmax = RAID_DURATION_SHORT;
-	$slotsize = 1;
+	    $slotmax = RAID_DURATION_SHORT;
+	    $slotsize = 1;
     } else {
-	$slotmax = RAID_DURATION_LONG;
-	$slotsize = 5;
+	    $slotmax = RAID_DURATION_LONG;
+	    $slotsize = 5;
     }
 
-    for ($i = $slotmax; $i >= 15; $i = $i - $slotsize) {
+//    for ($i = $slotmax; $i >= 15; $i = $i - $slotsize) {
+//        // Create the keys.
+//        $keys[] = array(
+//	    // Just show the time, no text - not everyone has a phone or tablet with a large screen...
+//            'text'          => floor($i / 60) . ':' . str_pad($i % 60, 2, '0', STR_PAD_LEFT),
+//            'callback_data' => $raid_id . ':edit_save:' . $i
+//        );
+//    }
+    for ($i = 1; $i <= 24; $i++) {
         // Create the keys.
         $keys[] = array(
-	    // Just show the time, no text - not everyone has a phone or tablet with a large screen...
-            'text'          => floor($i / 60) . ':' . str_pad($i % 60, 2, '0', STR_PAD_LEFT),
-            'callback_data' => $raid_id . ':edit_save:' . $i
+            // Just show the time, no text - not everyone has a phone or tablet with a large screen...
+            'text'          => $i,
+            'callback_data' => $raid_id . ':edit_save:' . $i*60
         );
     }
 } else {
@@ -215,11 +227,20 @@ if($opt_arg == 'more') {
         );
 
 
-        }
+    }
 }
 
+//Кнопка назад
+$keys_back[] = array(
+    'text'          => getTranslation('back'),
+    'callback_data' => $raid_id . ':edit_save:' . $old_duration
+);
+
 // Get the inline key array.
-$keys = inline_key_array($keys, 5);
+$keys = inline_key_array($keys, 4);
+$keys_back = inline_key_array($keys_back, 1);
+$keys = array_merge($keys, $keys_back);
+
 
 // Write to log.
 debug_log($keys);

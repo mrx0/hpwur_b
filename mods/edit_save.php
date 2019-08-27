@@ -53,19 +53,19 @@ if ($update['callback_query']['message']['chat']['type'] == 'private') {
     ];
 
     // Check access level prior allowing to change raid time
-    $admin_access = bot_access_check($update, BOT_ADMINS, true);
-//    if($admin_access && $arg == RAID_DURATION_SHORT) {
-//        // Add time change to keys.
-//        $keys_time = [
-//            [
-//                [
-//                    'text'          => getTranslation('change_raid_duration'),
-//                    'callback_data' => $id . ':edit_time:0,0,more,1'
-//                ]
-//            ]
-//        ];
-//        $keys = array_merge($keys, $keys_time);
-//    }
+    //$admin_access = bot_access_check($update, BOT_ADMINS, true);
+    //if($admin_access && $arg == RAID_DURATION_SHORT) {
+        // Add time change to keys.
+        $keys_time = [
+            [
+                [
+                    'text'          => getTranslation('change_raid_duration'),
+                    'callback_data' => $id . ':edit_time:'.$data['arg'].',0,more,1'
+                ]
+            ]
+        ];
+        $keys = array_merge($keys, $keys_time);
+    //}
 
     // Add keys to share.
     $keys_share = share_raid_keys($id, $userid);
