@@ -1,4 +1,8 @@
 <?php
+
+//place.php
+//Изменяет название места
+
 // Write to log.
 debug_log('PLACE()');
 
@@ -19,9 +23,10 @@ if ($update['message']['chat']['type'] == 'private') {
     try {
      
          // Update place name in raid table.
+        //Костыль! ориентируемся на place_name в виде #user_id, а не на place_id
         $query = '
             UPDATE places
-            SET place_name = :place_name, show_gym = 1
+            SET place_name = :place_name, show_place = 1
             WHERE
                 place_name = :place_id
             ORDER BY
@@ -43,5 +48,13 @@ if ($update['message']['chat']['type'] == 'private') {
 
     // Send the message.
     sendMessage($update['message']['chat']['id'], getTranslation('place_name_updated'));
+
+    //!!!
+    //20190825 пытался обновить сообщение в чате бота онлайн - пока не получилось, надо видимо смотреть в сторону editMessage
+    //вернуться потом и доделать
+//    //Get raid
+//    $raid = get_raid($update['message']['from']['id']);
+//    // Build message string.
+//    $msg .= show_raid_poll_small($raid);
 }
 ?>

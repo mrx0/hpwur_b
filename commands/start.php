@@ -1,4 +1,7 @@
 <?php
+
+//start.php
+
 // Write to log.
 debug_log('START()');
 
@@ -12,27 +15,28 @@ $searchterm = $update['message']['text'];
 $searchterm = substr($searchterm, 7);
 
 // Get the keys by gym name search.
-if(!empty($searchterm)) {
-    $keys = raid_get_gyms_list_keys($searchterm);
-} 
+//if(!empty($searchterm)) {
+//    $keys = raid_get_gyms_list_keys($searchterm);
+//}
 
 // Get the keys if nothing was returned. 
-if(!$keys) {
-    $keys = raid_edit_gyms_first_letter_keys();
-}
+//if(!$keys) {
+//    $keys = raid_edit_gyms_first_letter_keys();
+//}
 
 // No keys found.
-if (!$keys) {
-    // Create the keys.
-    $keys = [
-        [
-            [
-                'text'          => getTranslation('not_supported'),
-                'callback_data' => '0:exit:0'
-            ]
-        ]
-    ];
-}
+//if (!$keys) {
+//    // Create the keys.
+//    $keys = [
+//        [
+//            [
+//                'text'          => getTranslation('not_supported'),
+//                'callback_data' => '0:exit:0'
+//            ]
+//        ]
+//    ];
+//}
+$keys = [];
 
 // Set message.
 //$msg = '<b>' . getTranslation('select_gym_first_letter') . '</b>' . (RAID_VIA_LOCATION == true ? (CR2 . CR .  getTranslation('send_location')) : '');
@@ -40,5 +44,7 @@ $msg = '' . getTranslation('send_location') . '' . EMOJI_PAPERCLIP .  getTransla
 
 // Send message.
 send_message($update['message']['chat']['id'], $msg, $keys, ['reply_markup' => ['selective' => true, 'one_time_keyboard' => true]]);
+// Send keyboard.
+send_keyboard($update['message']['chat']['id']);
 
 ?>

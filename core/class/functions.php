@@ -1,4 +1,7 @@
 <?php
+
+//functions.php
+
 /**
  * Send message.
  * @param $chat_id
@@ -38,8 +41,7 @@ function sendMessage($chat_id, $text = [])
  * @param mixed $inline_keyboard
  * @param array $merge_args
  */
-function send_message($chat_id, $text = [], $inline_keyboard = false, $merge_args = [])
-{
+function send_message($chat_id, $text = [], $inline_keyboard = false, $merge_args = []){
     // Create response content array.
     $reply_content = [
         'method'     => 'sendMessage',
@@ -59,6 +61,42 @@ function send_message($chat_id, $text = [], $inline_keyboard = false, $merge_arg
     if (is_array($merge_args) && count($merge_args)) {
         $reply_content = array_merge_recursive($reply_content, $merge_args);
     }
+
+    // Encode data to json.
+    $reply_json = json_encode($reply_content);
+
+    // Set header to json.
+    header('Content-Type: application/json');
+
+    // Write to log.
+    debug_log($reply_json, '>');
+
+    // Send request to telegram api.
+    return curl_json_request($reply_json);
+}
+
+/**
+ * Send keyboard.
+ * @param $chat_id
+ * @param array $text
+ * @param mixed $inline_keyboard
+ */
+function send_keyboard($chat_id){
+    // Create response content array.
+    $reply_content = [
+        'method'     => 'sendMessage',
+        'chat_id'    => $chat_id,
+        'parse_mode' => 'HTML'
+    ];
+
+    //Встроенная клавиатура
+    $keyboard = array(
+        "keyboard" => [[["text" => "Кнопка 1"], ["text" => "Кнопка 2"]]],
+        "one_time_keyboard" => false,
+        "resize_keyboard" => true
+    );
+
+    $reply_content['reply_markup'] = $keyboard;
 
     // Encode data to json.
     $reply_json = json_encode($reply_content);
@@ -215,27 +253,47 @@ function answerCallbackQuery($query_id, $text)
  * @param $query_id
  * @param $contents
  */
-function answerInlineQuery($query_id, $contents)
-{
+function answerInlineQuery($query_id, $contents){
     // Init empty result array.
     $results = [];
+
+    // For debug.
+//    debug_log('answerInlineQuery()');
+//    debug_log($contents);
 
     // For each content.
     foreach ($contents as $key => $row) {
         // Raid
         if(isset($row['iqq_raid_id'])) {
             // Get raid poll.
+            // То, что в итоге передадим пользователю
             $text = show_raid_poll($row);
 
             // Get inline keyboard.
+            // ... плюс кнопки !!! ?? проверить, верно ли я угадал про кнопки
             $inline_keyboard = keys_vote($row);
 
-            // Set the title.
-            //$title = get_local_pokemon_name($row['pokemon']) . ' ' . getTranslation('from') . ' ' . unix2tz($row['ts_start'], $row['timezone'])  . ' ' . getTranslation('to') . ' ' . unix2tz($row['ts_end'], $row['timezone']);
-            $title = getTranslation('from') . ' ' . unix2tz($row['ts_start'], $row['timezone'], 'd.m.Y H:i')  . ' ' . getTranslation('to') . ' ' . unix2tz($row['ts_end'], $row['timezone']);
+            if ($row['descr']){
+                // Set the title.
+                $title = $row['descr'];
 
-            // Set the description.
-            $desc = strval($row['gym_name']);
+                // Set the description.
+                $desc = getTranslation('place').': '.strval($row['place_name']). CR;
+
+                $desc .= getTranslation('raid_start_time') . ' ' . unix2tz($row['ts_start'], $row['timezone'], 'd.m.Y H:i');
+                // Add endtime
+                $desc .= SP . getTranslation('to') . SP . unix2tz($row['ts_end'], $row['timezone']);
+
+            }else{
+                // Set the title.
+                $title = getTranslation('place').': '.strval($row['place_name']). CR;
+
+                // Set the description.
+                $desc = getTranslation('raid_start_time') . ' ' . unix2tz($row['ts_start'], $row['timezone'], 'd.m.Y H:i');
+                // Add endtime
+                $desc .= SP . getTranslation('to') . SP . unix2tz($row['ts_end'], $row['timezone']);
+            }
+
 
         // Quest
         } else if(isset($row['iqq_quest_id'])) {
@@ -272,7 +330,9 @@ function answerInlineQuery($query_id, $contents)
             'input_message_content' => $input_message_content,
             'reply_markup'          => [
                 'inline_keyboard' => $inline_keyboard
-            ]
+            ],
+
+            'thumb_url'       => 'https://tb0.ru/imgs/avatar_60lvl.png'
         ];
     }
 
@@ -550,6 +610,7 @@ function curl_json_request($json)
         debug_log('Adding bot folder name "' . basename(ROOT_PATH) . '" to callback data');
         $search = '"callback_data":"';
         $replace = $search . basename(ROOT_PATH) . ':';
+        //$replace = $search . basename(ROOT_PATH) . ':';
         $json = str_replace($search,$replace,$json);
     }
 

@@ -1,4 +1,7 @@
 <?php
+
+//edit_time.php
+
 // Write to log.
 debug_log('edit_time()');
 
@@ -12,16 +15,16 @@ $count_arg = substr_count($data['arg'], ',');
 
 // Set the id.
 // Count 0 means we just received the raid_id
-// Count 1 means we received gym_id and gym_first_letter
+// Count 1 means we received place_id and place_first_letter
 $raid_id = 0;
-$gym_id = 0;
-$gym_letter = 99;
+$place_id = 0;
+$place_letter = 99;
 if($count_id == 0) {
     $raid_id = $data['id'];
 } else if($count_id == 1) {
-    $gym_id_letter = explode(',', $data['id']);
-    $gym_id = $gym_id_letter[0];
-    $gym_letter = $gym_id_letter[1];
+    $place_id_letter = explode(',', $data['id']);
+    $place_id = $place_id_letter[0];
+    $place_letter = $place_id_letter[1];
 }
 
 // Set the arg.
@@ -32,14 +35,17 @@ $pokemon_time = explode(',', $data['arg']);
 $opt_arg = 'new-raid';
 $slot_switch = 0;
 if($count_arg == 1) {
-    $pokemon_id = $pokemon_time[0];
+    //$pokemon_id = $pokemon_time[0];
+    $old_duration = $pokemon_time[0];
     $starttime = $pokemon_time[1];
 } else if($count_arg == 2) {
-    $pokemon_id = $pokemon_time[0]; 
+    //$pokemon_id = $pokemon_time[0];
+    $old_duration = $pokemon_time[0];
     $starttime = $pokemon_time[1];
     $opt_arg = $pokemon_time[2];
 } else if($count_arg == 3) {
-    $pokemon_id = $pokemon_time[0];
+    //$pokemon_id = $pokemon_time[0];
+    $old_duration = $pokemon_time[0];
     $starttime = $pokemon_time[1];
     $opt_arg = $pokemon_time[2];
     $slot_switch = $pokemon_time[3];
@@ -48,13 +54,14 @@ if($count_arg == 1) {
 // Write to log.
 debug_log('count_id: ' . $count_id);
 debug_log('count_arg: ' . $count_arg);
+debug_log('old_duration: ' . $old_duration);
 debug_log('opt_arg: ' . $opt_arg);
 debug_log('slot_switch: ' . $slot_switch);
 
 // Create raid under the following conditions::
 // raid_id is 0, means we did not create it yet
-// gym_id is not 0, means we have a gym_id for creation
-if ($raid_id == 0 && $gym_id != 0) {
+// place_id is not 0, means we have a place_id for creation
+if ($raid_id == 0 && $place_id != 0) {
     // Replace "-" with ":" to get proper time format
     debug_log('Formatting the raid time properly now.');
     $arg_time = str_replace('-', ':', $starttime);
@@ -79,7 +86,7 @@ if ($raid_id == 0 && $gym_id != 0) {
     // Check for duplicate raid
     $duplicate_id = 0;
     if($raid_id == 0) {
-        $duplicate_id = raid_duplication_check($gym_id,$start_date_time,$end);
+        $duplicate_id = raid_duplication_check($place_id,$start_date_time,$end);
     }
 
     // Continue with raid creation
@@ -97,7 +104,7 @@ if ($raid_id == 0 && $gym_id != 0) {
 			  start_time = '{$start_date_time}',
                           end_time = DATE_ADD(start_time, INTERVAL {$duration} MINUTE),
 			  timezone = '{$tz}',
-			  gym_id = '{$gym_id}'
+			  place_id = '{$place_id}'
             "
         );
 
@@ -153,19 +160,27 @@ $keys = [];
 // Raid pokemon duration short or 1 Minute / 5 minute time slots
 if($opt_arg == 'more') {
     if ($slot_switch == 0) {
-	$slotmax = RAID_DURATION_SHORT;
-	$slotsize = 1;
+	    $slotmax = RAID_DURATION_SHORT;
+	    $slotsize = 1;
     } else {
-	$slotmax = RAID_DURATION_LONG;
-	$slotsize = 5;
+	    $slotmax = RAID_DURATION_LONG;
+	    $slotsize = 5;
     }
 
-    for ($i = $slotmax; $i >= 15; $i = $i - $slotsize) {
+//    for ($i = $slotmax; $i >= 15; $i = $i - $slotsize) {
+//        // Create the keys.
+//        $keys[] = array(
+//	    // Just show the time, no text - not everyone has a phone or tablet with a large screen...
+//            'text'          => floor($i / 60) . ':' . str_pad($i % 60, 2, '0', STR_PAD_LEFT),
+//            'callback_data' => $raid_id . ':edit_save:' . $i
+//        );
+//    }
+    for ($i = 1; $i <= 24; $i++) {
         // Create the keys.
         $keys[] = array(
-	    // Just show the time, no text - not everyone has a phone or tablet with a large screen...
-            'text'          => floor($i / 60) . ':' . str_pad($i % 60, 2, '0', STR_PAD_LEFT),
-            'callback_data' => $raid_id . ':edit_save:' . $i
+            // Just show the time, no text - not everyone has a phone or tablet with a large screen...
+            'text'          => $i,
+            'callback_data' => $raid_id . ':edit_save:' . $i*60
         );
     }
 } else {
@@ -199,6 +214,7 @@ if($opt_arg == 'more') {
     } else {
 
         // Use raid pokemon duration short.
+
         $keys[] = array(
             'text'          => '0:' . RAID_DURATION_SHORT,
             'callback_data' => $raid_id . ':edit_save:' . RAID_DURATION_SHORT
@@ -211,11 +227,20 @@ if($opt_arg == 'more') {
         );
 
 
-        }
+    }
 }
 
+//Кнопка назад
+$keys_back[] = array(
+    'text'          => getTranslation('back'),
+    'callback_data' => $raid_id . ':edit_save:' . $old_duration
+);
+
 // Get the inline key array.
-$keys = inline_key_array($keys, 5);
+$keys = inline_key_array($keys, 4);
+$keys_back = inline_key_array($keys_back, 1);
+$keys = array_merge($keys, $keys_back);
+
 
 // Write to log.
 debug_log($keys);

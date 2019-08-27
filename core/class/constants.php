@@ -63,7 +63,9 @@ define('EMOJI_BEER',            iconv('UCS-4LE', 'UTF-8', pack('V', 0x1F37A)));
 //fuck
 define('EMOJI_FUCK',            iconv('UCS-4LE', 'UTF-8', pack('V', 0x1F595)));
 //unknown
-define('EMOJI_UNKNOWN',         iconv('UCS-4LE', 'UTF-8', pack('V', 0x1F464)));
+define('EMOJI_UNKNOWN_MAN',         iconv('UCS-4LE', 'UTF-8', pack('V', 0x1F464)));
+//man shrugging
+define('EMOJI_MAN_SHRUGGING',   iconv('UCS-4LE', 'UTF-8', pack('V*', 0x1F937, 0x200D, 0x2642, 0xFE0F)));
 
 
 // Weather Icons.
@@ -101,7 +103,7 @@ $profs = array(
     'auror'     => EMOJI_AUROR,
     'zoolog'    => EMOJI_MAGOZOOLOGIST,
     'prof'      => EMOJI_PROFESSOR,
-    'unknown'   => EMOJI_UNKNOWN,
+    'unknown'   => EMOJI_UNKNOWN_MAN,
     'cancel'    => TEAM_CANCEL
 );
 

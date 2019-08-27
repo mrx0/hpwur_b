@@ -1,6 +1,9 @@
 <?php
+
+//vote_extra.php
+
 // Write to log.
-debug_log('vote()');
+debug_log('vote_extra()');
 
 // For debug.
 //debug_log($update);
