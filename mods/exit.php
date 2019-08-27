@@ -18,15 +18,15 @@ answerCallbackQuery($update['callback_query']['id'], $msg);
 // Edit the message.
 edit_message($update, $msg, $keys);
 
-// Set gym_user_id tag.
-$gym_user_id = '#' . $update['callback_query']['from']['id'];
+// Set place_user_id tag.
+$place_user_id = '#' . $update['callback_query']['from']['id'];
 
-// Get gym.
-$gym = get_gym($data['id']);
+// Get place.
+$place = get_place($data['id']);
 
-// Delete gym from database.
-if($gym['gym_name'] == $gym_user_id && $gym['show_gym'] == 0 && $data['arg'] == 2) {
-    delete_gym($data['id']);
+// Delete place from database.
+if($place['place_name'] == $place_user_id && $place['show_place'] == 0 && $data['arg'] == 2) {
+    delete_place($data['id']);
 }
 
 // Exit.

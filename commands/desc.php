@@ -1,37 +1,40 @@
 <?php
+
+//desc.php
+//Меняет описание рейда
+
 // Write to log.
-debug_log('PLACE()');
+debug_log('DESCRIPTION()');
 
 // For debug.
-//debug_log($update);
+debug_log($update);
 //debug_log($data);
 
-// Get place name.
-$place_name = trim(substr($update['message']['text'], 6));
+// Get raid description.
+$raid_description = trim(substr($update['message']['text'], 5));
 
 // Write to log.
-debug_log('Setting place name to ' . $place_name);
-//debug_log('message_chat_type ' . $update['message']['chat']['type']);
+debug_log('Setting raid description to ' . $raid_description);
 
 // Private chat type.
 if ($update['message']['chat']['type'] == 'private') {
 
     try {
-     
-         // Update place name in raid table.
+
+        // Update raid description
+        //Костыль! ориентируемся на user_id, а не на raid_id
         $query = '
-            UPDATE places
-            SET place_name = :place_name, show_gym = 1
+            UPDATE raids
+            SET descr = :raid_description
             WHERE
-                place_name = :place_id
+                user_id = :user_id
             ORDER BY
                 id DESC
             LIMIT 1
         ';
         $statement = $dbh->prepare( $query );
-        $statement->bindValue(':place_name', $place_name, PDO::PARAM_STR);
-        //$statement->bindValue(':place_id', '#'.$update['message']['from']['id'], PDO::PARAM_INT);
-        $statement->bindValue(':place_id', '#'.$update['message']['from']['id'], PDO::PARAM_STR);
+        $statement->bindValue(':raid_description', $raid_description, PDO::PARAM_STR);
+        $statement->bindValue(':user_id', ''.$update['message']['from']['id'], PDO::PARAM_STR);
         $statement->execute();
     }
     catch (PDOException $exception) {
@@ -42,7 +45,7 @@ if ($update['message']['chat']['type'] == 'private') {
     }
 
     // Send the message.
-    sendMessage($update['message']['chat']['id'], getTranslation('place_name_updated'));
+    sendMessage($update['message']['chat']['id'], getTranslation('raid_description_updated'));
 
     //!!!
     //20190825 пытался обновить сообщение в чате бота онлайн - пока не получилось, надо видимо смотреть в сторону editMessage

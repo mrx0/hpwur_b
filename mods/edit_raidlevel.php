@@ -63,11 +63,11 @@ $admin_access = bot_access_check($update, BOT_ADMINS, true);
 if ($admin_access) {
     // Get the keys.
     //$keys = raid_edit_raidlevel_keys($place_id, $place_first_letter, true);
-    $keys = raid_edit_opportunity_keys($place_id, $place_first_letter, true);
+    $keys = raid_edit_opportunity_keys($place_id, $place_first_letter, '', true);
 } else {
     // Get the keys.
     //$keys = raid_edit_raidlevel_keys($place_id, $place_first_letter);
-    $keys = raid_edit_opportunity_keys($place_id, $place_first_letter);
+    $keys = raid_edit_opportunity_keys($place_id, $place_first_letter, '');
 }
 
 // No keys found.

@@ -1,63 +1,62 @@
 <?php
+
+//vote_dd.php
+
 // Write to log.
-debug_log('vote_level()');
+debug_log('vote_dd()');
 
 // For debug.
 //debug_log($update);
 //debug_log($data);
 
-// Get action.
-$action = $data['arg'];
+// Check if the user has voted for this raid before.
+$rs = my_query(
+    "
+    SELECT    user_id
+    FROM      attendance
+      WHERE   raid_id = {$data['id']}
+        AND   user_id = {$update['callback_query']['from']['id']}
+    "
+);
 
-// Standart level.
-if ($action == '0') {
-    // Standart users level.
+// Get the answer.
+$answer = $rs->fetch_assoc();
+
+// Write to log.
+debug_log($answer);
+
+// User has voted before.
+if (!empty($answer)) {
+
+    // Set dd option for user
     my_query(
         "
-        UPDATE    users
-        SET       level = 8
-          WHERE   user_id = {$update['callback_query']['from']['id']}
+        UPDATE    attendance
+        SET       dd = {$data['arg']}
+          WHERE   raid_id = {$data['id']}
+            AND   user_id = {$update['callback_query']['from']['id']}
         "
     );
-}
 
-// Up-vote.
-if ($action == 'up') {
-    // Increase users level.
+    // Send vote response.
+    send_response_vote($update, $data);
+} else {
+    // Send vote time first.
 
-//    my_query(
-//        "
-//        UPDATE    users
-//        SET       level = IF(level = 0, 30, level+1)
-//          WHERE   user_id = {$update['callback_query']['from']['id']}
-//            AND   level < 40
-//        "
-//    );
+    //send_vote_time_first($update);//<-- Вот это не пускает, если изначально не выбрали время
 
+    //Добавляемся в бд
     my_query(
         "
-        UPDATE    users
-        SET       level = IF(level = 0, 8, level+1)
-          WHERE   user_id = {$update['callback_query']['from']['id']}
-            AND   level < 15
+        INSERT INTO   attendance
+        SET           raid_id = {$data['id']},
+                      dd = {$data['arg']}
+                      user_id = {$update['callback_query']['from']['id']}
         "
     );
-}
 
-// Down-vote.
-if ($action == 'down') {
-    // Decrease users level.
-    my_query(
-        "
-        UPDATE    users
-        SET       level = level-1
-          WHERE   user_id = {$update['callback_query']['from']['id']}
-            AND   level > 0
-        "
-    );
+    // Send vote response.
+    send_response_vote($update, $data);
 }
-
-// Send vote response.
-send_response_vote($update, $data);
 
 exit();

@@ -1,4 +1,8 @@
 <?php
+
+//raid_by_location.php
+//Создаем рейд по локации, сразу выбираем дату рейда
+
 // Write to log.
 debug_log('raid_by_location()');
 
@@ -33,7 +37,7 @@ if(!empty(GOOGLE_API_KEY)){
     $address .= (!empty($addr['street']) ? $addr['street'] : '');
     $address .= (!empty($addr['street_number']) ? ' ' . $addr['street_number'] : '');
     $address .= (!empty($addr) ? ', ' : '');
-    $address .= (!empty($addr['postal_code']) ? $addr['postal_code'] . ' ' : '');
+    //$address .= (!empty($addr['postal_code']) ? $addr['postal_code'] . ' ' : '');
     $address .= (!empty($addr['district']) ? $addr['district'] : '');
 }
 
@@ -76,6 +80,7 @@ debug_log('Place Name: ' . $place_name);
 //$place_first_letter = 0;
 
 //$keys = raid_edit_opportunity_keys($place_id, $place_first_letter);
+//Выбираем дату
 $keys = raid_edit_days_keys($place_id, $place_first_letter);
 
 // No keys found.

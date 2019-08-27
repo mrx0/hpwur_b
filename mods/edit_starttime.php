@@ -1,4 +1,7 @@
 <?php
+
+//edit_starttime.php
+
 // Write to log.
 debug_log('edit_starttime()');
 
@@ -9,8 +12,10 @@ debug_log('edit_starttime()');
 // Get the argument.
 //Start Date
 $date_arg = $data['arg'];
-//debug_log($date);
+//debug_log('$date_arg: '.$date_arg);
+//День недели
 $week_day = getTranslation('weekday_'.date("w", strtotime($date_arg)));
+//Дата когда будет рейд
 $date = date('d.m', strtotime($date_arg)).' '.$week_day;
 
 // Check for options.
@@ -88,6 +93,7 @@ $place_id = explode(',', $data['id'])[0];
     // Now
     $now = time();
 
+    //debug_log('$now: '.date('Y-m-d', $now));
     //!!!Выводим ближайшие полчаса/час
     //$rounded_now = round($now / (30 * 60)) * (30 * 60);
 
@@ -137,16 +143,43 @@ $place_id = explode(',', $data['id'])[0];
 //            );
 //        }
 
-        for ($i = 0; $i <= 23; $i++) {
+        //С какого часа предлагаем выбор времени начала
+        $first_hour = 0;
+
+        //Если дата совпадает с сегодняшней
+        if ($date_arg === date('Y-m-d', $now)) {
+            //Даём выбор от текущего часа и до полуночи
+//            debug_log('$date_arg = $now');
+//            debug_log($date_arg === date('Y-m-d', $now));
+//            debug_log(date('H', $now));
+
+            //Текущий час
+            $first_hour = date('H', $now) + 1;
+
+            //Костыль: час не может быть больше 23х
+            if ($first_hour > 23){
+                $first_hour = 23;
+            }
+
+        }
+
+        for ($i = $first_hour; $i <= 23; $i++) {
             //$now_plus_i = $rounded_now + $i*60;
             // Create the keys.
-
+            //Переход на сохранение
+//            $keys[] = array(
+//                // Just show the time, no text - not everyone has a phone or tablet with a large screen...
+//                'text' => $i . ':00',
+//                'callback_data' => $id . ':raid_save:' . $date_arg . ' ' . dateTransformation($i) . '.00.00'
+//            );
+            //Переход на выбор типа (башня, глаза...)
             $keys[] = array(
                 // Just show the time, no text - not everyone has a phone or tablet with a large screen...
-                'text'	        => $i.':00',
-                'callback_data' => $id . ':raid_save:'.$date_arg.' '.dateTransformation($i).'.00.00'
+                'text' => $i . ':00',
+                'callback_data' => $id . ':edit_actions:' . $date_arg . ' ' . dateTransformation($i) . '.00.00'
             );
         }
+
 
 //    }
 
@@ -165,9 +198,6 @@ $place_id = explode(',', $data['id'])[0];
 //        'callback_data' => $id . ':edit_starttime:' . $pokemon_id . ',' . $switch_view
 //    );
 
-
-    // Write to log.
-    debug_log($keys);
 
 //} else {
 //    // Edit opportunity.
@@ -221,6 +251,9 @@ if (!$keys) {
 //} else {
 //    $callback_response = getTranslation('raid_starts_when_view_changed');
 //}
+
+// Write to log.
+debug_log($keys);
 
 //
 $callback_response = getTranslation('raid_saved');

@@ -1,4 +1,7 @@
 <?php
+
+//vote_status.php
+
 // Write to log.
 debug_log('vote_status()');
 

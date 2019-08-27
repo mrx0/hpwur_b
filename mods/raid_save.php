@@ -1,4 +1,7 @@
 <?php
+
+//raid_save.php
+
 // Write to log.
 debug_log('raid_save()');
 
@@ -13,9 +16,11 @@ debug_log('raid_save()');
 //debug_log($data['arg']);
 
 //Место
-$place_id = $data['id'];
+$place_id = explode('_', $data['id'])[0];
 //Дата + Время
-$starttime = $data['arg'];
+$starttime = explode('_', $data['id'])[1];
+//Тип того, что будем делать
+$type = $data['arg'];
 
 // Set the id.
 // Count 0 means we just received the raid_id
@@ -32,7 +37,7 @@ $starttime = $data['arg'];
 //}
 
 // Set the arg.
-// Count 1 means we received pokemon_id and starttime 
+// Count 1 means we received pokemon_id and starttime
 // Count 2 means we received pokemon_id, starttime and an optional argument
 // Count 3 means we received pokemon_id, starttime, optional argument and slot switch
 //$pokemon_time = explode(',', $data['arg']);
@@ -101,10 +106,12 @@ $starttime = $data['arg'];
         $rs = my_query(
             "
             INSERT INTO   raids
-            SET           user_id = {$update['callback_query']['from']['id']},
+            SET           
+              user_id = {$update['callback_query']['from']['id']},
+              type = {$type},
 			  first_seen = NOW(),
 			  start_time = '{$start_date_time}',
-                          end_time = DATE_ADD(start_time, INTERVAL {$duration} MINUTE),
+              end_time = DATE_ADD(start_time, INTERVAL {$duration} MINUTE),
 			  timezone = '{$tz}',
 			  place_id = '{$place_id}'
             "
@@ -112,6 +119,16 @@ $starttime = $data['arg'];
 
         // Get last insert id from db.
         $raid_id = my_insert_id();
+
+        //Сразу добавим участником создателя
+        $rs = my_query(
+            "
+            INSERT INTO   attendance
+            SET           
+              user_id = '{$update['callback_query']['from']['id']}',
+			  raid_id = '{$raid_id}'
+            "
+        );
 
         // Write to log.
         debug_log('ID=' . $raid_id);

@@ -1,5 +1,8 @@
 <?php
+
+//edit_save.php
 //Показывается в конце, когда всё сохранено
+
 // Write to log.
 debug_log('edit_save()');
 
@@ -75,7 +78,7 @@ if ($update['callback_query']['message']['chat']['type'] == 'private') {
     // Итоговое сообщение в боте о том, что реёд готов
     $msg = '';
     //$msg .= getTranslation('raid_saved') . CR;
-    $msg .= getTranslation('raid_saved') . ' ';
+    $msg .= getTranslation('raid_saved') . ' '.CR2;
     $msg .= show_raid_poll_small($raid) . CR;
 
     // User_id tag.
@@ -93,6 +96,7 @@ if ($update['callback_query']['message']['chat']['type'] == 'private') {
     $msg .= getTranslation('set_place_name_and_team') . CR2;
 
     $msg .= getTranslation('set_place_name_command') . CR;
+    $msg .= getTranslation('set_descr_command') . CR;
     //$msg .= getTranslation('set_gym_team_command');
 
     // Build callback message string.

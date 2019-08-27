@@ -428,7 +428,18 @@
     "FR":"Ce raid existe déjà",
     "PL":"Rajd już istnieje"
   },
-  "create_raid":{  
+  "raid_not_exists":{
+    "NL":"",
+    "DE":"",
+    "EN":"Raid not exists!",
+    "IT":"",
+    "PT-BR":"",
+    "RU":"404! Не нашёл такого рейда ",
+    "NO":"",
+    "FR":"",
+    "PL":""
+  },
+  "create_raid":{
     "NL":"Begin Raid in",
     "DE":"Erstelle Raid in",
     "EN":"Create Raid in",
@@ -467,7 +478,7 @@
     "EN":"Raid reason",
     "IT":"",
     "PT-BR":"",
-    "RU":"Повод для рейда",
+    "RU":"Что будем делать?",
     "NO":"",
     "FR":"",
     "PL":""
@@ -530,10 +541,10 @@
   "raid_saved":{
     "NL":"",
     "DE":"",
-    "EN":"Saved:",
+    "EN":"Saved!",
     "IT":"",
     "PT-BR":"",
-    "RU":"Сохранено:",
+    "RU":"Сохранено!",
     "NO":"",
     "FR":"",
     "PL":""
@@ -604,6 +615,17 @@
     "FR":"",
     "PL":""
   },
+  "set_descr_command":{
+    "NL":"",
+    "DE":"",
+    "EN":"/desc <code>Decription</code>",
+    "IT":"",
+    "PT-BR":"",
+    "RU":"Описание: /desc <code>описание</code>",
+    "NO":"",
+    "FR":"",
+    "PL":""
+  },
   "set_gym_team":{
     "NL":"Optioneel - zet Gym en Team",
     "DE":"Optional - Arena Team setzen",
@@ -662,10 +684,10 @@
   "select_date":{
     "NL":"",
     "DE":"",
-    "EN":"Select the <b>date</b>",
+    "EN":"Select the date",
     "IT":"",
     "PT-BR":"",
-    "RU":"Выберите <b>дату</b>:",
+    "RU":"Выберите дату:",
     "NO":":",
     "FR":"",
     "PL":""
@@ -677,6 +699,17 @@
     "IT":"",
     "PT-BR":"",
     "RU":"Выбрана дата:",
+    "NO":":",
+    "FR":"",
+    "PL":""
+  },
+  "selected_time":{
+    "NL":"",
+    "DE":"",
+    "EN":"",
+    "IT":"",
+    "PT-BR":"",
+    "RU":"Выбрано время:",
     "NO":":",
     "FR":"",
     "PL":""
@@ -1253,6 +1286,17 @@
     "FR":"",
     "PL":""
   },
+  "raid_description_updated":{
+    "NL":"",
+    "DE":"",
+    "EN":"Raid description updated.",
+    "IT":"",
+    "PT-BR":"",
+    "RU":"Описание обновлено.",
+    "NO":"",
+    "FR":"",
+    "PL":""
+  },
   "mods_details":{
     "NL":"Selecteer moderator voor meer informatie:",
     "DE":"Für Details Moderator auswählen:",
@@ -1556,6 +1600,17 @@
     "IT":"",
     "PT-BR":"",
     "RU":"- ур",
+    "NO":"",
+    "FR":"",
+    "PL":""
+  },
+  "raid_description":{
+    "NL":"",
+    "DE":"",
+    "EN":"Description: ",
+    "IT":"",
+    "PT-BR":"",
+    "RU":"Описание: ",
     "NO":"",
     "FR":"",
     "PL":""

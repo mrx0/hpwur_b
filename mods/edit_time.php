@@ -1,4 +1,7 @@
 <?php
+
+//edit_time.php
+
 // Write to log.
 debug_log('edit_time()');
 
@@ -12,16 +15,16 @@ $count_arg = substr_count($data['arg'], ',');
 
 // Set the id.
 // Count 0 means we just received the raid_id
-// Count 1 means we received gym_id and gym_first_letter
+// Count 1 means we received place_id and place_first_letter
 $raid_id = 0;
-$gym_id = 0;
-$gym_letter = 99;
+$place_id = 0;
+$place_letter = 99;
 if($count_id == 0) {
     $raid_id = $data['id'];
 } else if($count_id == 1) {
-    $gym_id_letter = explode(',', $data['id']);
-    $gym_id = $gym_id_letter[0];
-    $gym_letter = $gym_id_letter[1];
+    $place_id_letter = explode(',', $data['id']);
+    $place_id = $place_id_letter[0];
+    $place_letter = $place_id_letter[1];
 }
 
 // Set the arg.
@@ -53,8 +56,8 @@ debug_log('slot_switch: ' . $slot_switch);
 
 // Create raid under the following conditions::
 // raid_id is 0, means we did not create it yet
-// gym_id is not 0, means we have a gym_id for creation
-if ($raid_id == 0 && $gym_id != 0) {
+// place_id is not 0, means we have a place_id for creation
+if ($raid_id == 0 && $place_id != 0) {
     // Replace "-" with ":" to get proper time format
     debug_log('Formatting the raid time properly now.');
     $arg_time = str_replace('-', ':', $starttime);
@@ -79,7 +82,7 @@ if ($raid_id == 0 && $gym_id != 0) {
     // Check for duplicate raid
     $duplicate_id = 0;
     if($raid_id == 0) {
-        $duplicate_id = raid_duplication_check($gym_id,$start_date_time,$end);
+        $duplicate_id = raid_duplication_check($place_id,$start_date_time,$end);
     }
 
     // Continue with raid creation
@@ -97,7 +100,7 @@ if ($raid_id == 0 && $gym_id != 0) {
 			  start_time = '{$start_date_time}',
                           end_time = DATE_ADD(start_time, INTERVAL {$duration} MINUTE),
 			  timezone = '{$tz}',
-			  gym_id = '{$gym_id}'
+			  place_id = '{$place_id}'
             "
         );
 
@@ -199,6 +202,7 @@ if($opt_arg == 'more') {
     } else {
 
         // Use raid pokemon duration short.
+
         $keys[] = array(
             'text'          => '0:' . RAID_DURATION_SHORT,
             'callback_data' => $raid_id . ':edit_save:' . RAID_DURATION_SHORT
