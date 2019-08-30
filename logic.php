@@ -3258,7 +3258,7 @@ function show_raid_poll($raid){
         //более рабочий вариант гугла
         //$msg .= '<a href="https://maps.google.com/?q=' . $raid['lat'] . ',' . $raid['lon'] . '">' . $raid['address'] . '</a>' . CR;
         //решил поставить тут пока яндекс.карты
-        $msg .= '<a href="https://maps.yandex.ru/?text=' . $raid['lat'] . '+' . $raid['lon'] . '">' . $raid['address'] . '</a>' . CR;
+        $msg .= '<a href="https://maps.yandex.ru/?text=' . $raid['lat'] . ',' . $raid['lon'] . '">' . $raid['address'] . '</a>' . CR;
     } else {
 
     // Get the address.
@@ -3282,11 +3282,11 @@ function show_raid_poll($raid){
 			);    
             //Use new address
 	        //$msg .= '<a href="https://maps.google.com/?daddr=' . $raid['lat'] . ',' . $raid['lon'] . '">' . $Address . '</a>' . CR;
-            $msg .= '<a href="https://maps.yandex.ru/?text=' . $raid['lat'] . '+' . $raid['lon'] . '">' . $Address . '</a>' . CR;
+            $msg .= '<a href="https://maps.yandex.ru/?text=' . $raid['lat'] . ',' . $raid['lon'] . '">' . $Address . '</a>' . CR;
 		}else {
 	        //If no address is found show google link
 	        //$msg .= '<a href="http://maps.google.com/maps?q=' . $raid['lat'] . ',' . $raid['lon'] . '">http://maps.google.com/maps?q=' . $raid['lat'] . ',' . $raid['lon'] . '</a>' . CR;
-            $msg .= '<a href="https://maps.yandex.ru/?text=' . $raid['lat'] . '+' . $raid['lon'] . '">https://maps.yandex.ru/?text=' . $raid['lat'] . '+' . $raid['lon'] . '</a>' . CR;
+            $msg .= '<a href="https://maps.yandex.ru/?text=' . $raid['lat'] . ',' . $raid['lon'] . '">https://maps.yandex.ru/?text=' . $raid['lat'] . ',' . $raid['lon'] . '</a>' . CR;
         }
     }
 
