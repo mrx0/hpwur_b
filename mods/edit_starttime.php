@@ -217,9 +217,10 @@ if (!$keys) {
     ];
 } else {
     // Back key id, action and arg
-    $back_id = $id;
+    $back_id = $place_id;
     $back_action = 'raid_by_location';
-    $back_arg = get_raid_level($pokemon_id);
+    //$back_arg = get_raid_level($pokemon_id);
+    $back_arg = 0;
 
     // Add navigation keys.
     $nav_keys = [];

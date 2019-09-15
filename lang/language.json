@@ -427,6 +427,17 @@
     "NO":"Flere valg",
     "FR":"Agrandir",
     "PL":"Rozwiń"
+  },
+  "profile":{
+    "NL":"",
+    "DE":"",
+    "EN":"Profile",
+    "IT":"",
+    "PT-BR":"",
+    "RU":"Профиль",
+    "NO":"",
+    "FR":"",
+    "PL":""
   }
 }
 

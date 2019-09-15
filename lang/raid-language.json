@@ -1116,7 +1116,7 @@
     "EN":"Here we go!",
     "IT":"Eccoci qui!",
     "PT-BR":"Bora arrasar!",
-    "RU":"А вот и мы!",
+    "RU":"Поехали!",
     "NO":"Kjør på!",
     "FR":"C'est parti !",
     "PL":"Zaczynamy!"
@@ -1611,6 +1611,39 @@
     "IT":"",
     "PT-BR":"",
     "RU":"Описание: ",
+    "NO":"",
+    "FR":"",
+    "PL":""
+  },
+  "send_my_current_location":{
+    "NL":"",
+    "DE":"",
+    "EN":"Send my current location",
+    "IT":"",
+    "PT-BR":"",
+    "RU":"Отправить текущую локацию",
+    "NO":"",
+    "FR":"",
+    "PL":""
+  },
+  "select_action":{
+    "NL":"",
+    "DE":"",
+    "EN":"Select action",
+    "IT":"",
+    "PT-BR":"",
+    "RU":"Выберите действие:",
+    "NO":"",
+    "FR":"",
+    "PL":""
+  },
+  "get_oddities_time":{
+    "NL":"",
+    "DE":"",
+    "EN":"Oddities",
+    "IT":"",
+    "PT-BR":"",
+    "RU":"Oddities",
     "NO":"",
     "FR":"",
     "PL":""

@@ -124,7 +124,8 @@ if (isset($update['callback_query'])) {
 
     // Create raid and exit.
     if(RAID_VIA_LOCATION == true) {
-        include_once(ROOT_PATH . '/mods/raid_by_location.php');
+        //include_once(ROOT_PATH . '/mods/raid_by_location.php');
+        include_once(ROOT_PATH . '/mods/choose_action.php');
     }
 
 // Cleanup collection from channel/supergroup messages.

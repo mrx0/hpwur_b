@@ -43,8 +43,8 @@ $keys = [];
 $msg = '' . getTranslation('send_location') . '' . EMOJI_PAPERCLIP .  getTranslation('send_location2');
 
 // Send message.
-send_message($update['message']['chat']['id'], $msg, $keys, ['reply_markup' => ['selective' => true, 'one_time_keyboard' => true]]);
+//send_message($update['message']['chat']['id'], $msg, $keys, ['reply_markup' => ['selective' => true, 'one_time_keyboard' => true]]);
 // Send keyboard.
-send_keyboard($update['message']['chat']['id']);
+send_keyboard($update['message']['chat']['id'], $msg);
 
 ?>

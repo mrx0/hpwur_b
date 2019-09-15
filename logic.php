@@ -506,7 +506,7 @@ function get_raid($raid_id)
     return $raid;
 }
 
-/**
+/**!!!Получение активных рейдов
  * Get last 20 active raids.
  * @param $timezone
  * @return array
@@ -1172,6 +1172,65 @@ function raid_edit_raidlevel_keys($gym_id, $gym_first_letter, $admin = false)
 
     return $keys;
 }
+
+/**
+ * choose__action_keys. NEW
+ * @param $place_id
+ * @param $admin
+ * @return array
+ */
+function choose_action_keys($lat, $lon, $admin = false){
+
+    // Save and Reset key
+//    $keys = array();
+    //
+//    $day_array_temp = array(
+//        'text'          => '',
+//        'callback_data' => ''
+//    );
+
+    // Init keys array.
+    $keys = [
+        [
+            'text' => getTranslation('create_a_raid'),
+            'callback_data' => ':raid_by_location:'.$lat.'+'.$lon,
+        ],
+        [
+            'text' => getTranslation('get_oddities_time'),
+            'callback_data' => ':get_oddities_time:'.$lat.'+'.$lon,
+        ]
+    ];
+
+        //Формируем кнопки
+//    $day_array_temp['text'] = getTranslation('create_a_raid');
+//    $day_array_temp['callback_data'] =  ':raid_by_location:'.$lat.'+'.$lon;
+//
+//    $day_array_temp['text'] = getTranslation('oddities');
+//    $day_array_temp['callback_data'] =  ':Oddities:'.$lat.'+'.$lon;
+
+    //array_push($keys, $day_array_temp);
+
+
+//    for ($i=0; $i<=7; $i++){
+//        $week_day = getTranslation('weekday_'.date("w", strtotime($i.' days')));
+//        //Сегодня выделим
+////        if ($i == 0){
+////            $week_day = '<b>'.$week_day.'</b>';
+////        }
+//
+//        $day_array_temp['text'] = date('d.m', strtotime($i.' days')).' '.$week_day;
+//        $day_array_temp['callback_data'] = $place_id . ':edit_starttime:'.date('Y-m-d', strtotime($i.' days'));
+//
+//        array_push($keys, $day_array_temp);
+//    }
+
+    // Get the inline key array.
+    $keys = inline_key_array($keys, 1);
+
+    return $keys;
+}
+
+
 
 /**
  * Raid edit start keys.
@@ -3243,7 +3302,8 @@ function show_raid_poll($raid){
 
 	//Description
     if ($raid['descr']){
-        $msg .= getTranslation('raid_description').$raid['descr'].CR2;
+        //$msg .= getTranslation('raid_description').$raid['descr'].CR2;
+        $msg .= $raid['descr'].CR2;
     }
 
     // Display details.

@@ -81,17 +81,44 @@ function send_message($chat_id, $text = [], $inline_keyboard = false, $merge_arg
  * @param array $text
  * @param mixed $inline_keyboard
  */
-function send_keyboard($chat_id){
+function send_keyboard($chat_id, $text = []){
     // Create response content array.
     $reply_content = [
         'method'     => 'sendMessage',
         'chat_id'    => $chat_id,
-        'parse_mode' => 'HTML'
+        'parse_mode' => 'HTML',
+        'text' => $text
     ];
 
     //Встроенная клавиатура
     $keyboard = array(
-        "keyboard" => [[["text" => "Кнопка 1"], ["text" => "Кнопка 2"]]],
+        "keyboard" => [
+            [
+                [
+                    "text" => getTranslation('send_my_current_location'),
+                    "request_location" => true
+                ],
+            ],
+            [
+                [
+                    "text" => "Кнопка 21"
+                ],
+                [
+                    "text" => "Кнопка 22"
+                ],
+            ],
+            [
+                [
+                    "text" => "Кнопка 31"
+                ],
+                [
+                    "text" => "Кнопка 32"
+                ],
+                [
+                    "text" => "Кнопка 33"
+                ],
+            ]
+        ],
         "one_time_keyboard" => false,
         "resize_keyboard" => true
     );
