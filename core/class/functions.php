@@ -101,15 +101,15 @@ function send_keyboard($chat_id, $text = []){
             ],
             [
                 [
-                    "text" => "Кнопка 21"
+                    "text" => getTranslation('profile')
                 ],
                 [
-                    "text" => "Кнопка 22"
+                    "text" => getTranslation('language')
                 ],
-            ],
+            ]/*,
             [
                 [
-                    "text" => "Кнопка 31"
+                    "text" => "/start"
                 ],
                 [
                     "text" => "Кнопка 32"
@@ -117,7 +117,7 @@ function send_keyboard($chat_id, $text = []){
                 [
                     "text" => "Кнопка 33"
                 ],
-            ]
+            ]*/
         ],
         "one_time_keyboard" => false,
         "resize_keyboard" => true
@@ -669,6 +669,162 @@ function curl_json_request($json)
 
     // Process repsonse from telegram api.
     $response = curl_json_response($json_response, $json);
+
+    // Return response.
+    return $response;
+}
+
+/**
+ * Запрос часового пояса/временной зоны и рассвета + заката
+ * @param $lat
+ * @param $lon
+ * @param $date
+ * @return $response
+ */
+function curl_get_timezone($lat, $lon, $date){
+
+    $URL = 'http://api.geonames.org/timezoneJSON?';
+    $query = $URL.'username=inval_id&lat='.$lat.'&lng='.$lon.'&date='.$date;
+
+    $curl = curl_init();
+
+    curl_setopt($curl, CURLOPT_URL, $query);
+
+    curl_setopt($curl, CURLOPT_HEADER, FALSE);
+    curl_setopt($curl, CURLOPT_RETURNTRANSFER, TRUE);
+    curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, FALSE);
+    curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, FALSE);
+    curl_setopt($curl, CURLOPT_TIMEOUT, 15);
+    curl_setopt($curl, CURLOPT_FAILONERROR, TRUE);
+
+    // Use Proxyserver for curl if configured
+    if (CURL_USEPROXY == true) {
+        curl_setopt($curl, CURLOPT_PROXY, CURL_PROXYSERVER);
+    }
+
+    $json_response = curl_exec($curl);
+
+    curl_close($curl);
+
+    $response = json_decode($json_response, true);
+
+    // Return response.
+    return $response;
+}
+
+/**
+ * Запрос часового пояса/временной зоны и рассвета + заката
+ * Через другой API
+ * @param $lat
+ * @param $lon
+ * @param $date
+ * @return $response
+ */
+function curl_get_timezone2($lat, $lon, $date_another){
+    //Format
+    $format = 'json';
+
+    $URL = 'http://api.timezonedb.com/v2.1/get-time-zone?';
+    $query = $URL.'key=UI4OJW1A2RWX&by=position&lat='.$lat.'&lng='.$lon.'format='.$format.'&date='.$date_another;
+
+    $curl = curl_init();
+
+    curl_setopt($curl, CURLOPT_URL, $query);
+
+    curl_setopt($curl, CURLOPT_HEADER, FALSE);
+    curl_setopt($curl, CURLOPT_RETURNTRANSFER, TRUE);
+    curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, FALSE);
+    curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, FALSE);
+    curl_setopt($curl, CURLOPT_TIMEOUT, 15);
+    curl_setopt($curl, CURLOPT_FAILONERROR, TRUE);
+
+    // Use Proxyserver for curl if configured
+    if (CURL_USEPROXY == true) {
+        curl_setopt($curl, CURLOPT_PROXY, CURL_PROXYSERVER);
+    }
+
+    $json_response = curl_exec($curl);
+
+    curl_close($curl);
+
+    $response = json_decode($json_response, true);
+
+    // Return response.
+    return $response;
+}
+
+/**
+ * Запрос солнечного календаря
+ * @param $lat
+ * @param $lon
+ * @param $date
+ * @return $response
+ */
+function curl_get_sun($lat, $lon, $date){
+
+    $URL = 'https://api.sunrise-sunset.org/json?';
+    $query = $URL.'lat='.$lat.'&lng='.$lon.'&date='.$date;
+
+    $curl = curl_init();
+
+    curl_setopt($curl, CURLOPT_URL, $query);
+
+    curl_setopt($curl, CURLOPT_HEADER, FALSE);
+    curl_setopt($curl, CURLOPT_RETURNTRANSFER, TRUE);
+    curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, FALSE);
+    curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, FALSE);
+    curl_setopt($curl, CURLOPT_TIMEOUT, 15);
+    curl_setopt($curl, CURLOPT_FAILONERROR, TRUE);
+
+    // Use Proxyserver for curl if configured
+    if (CURL_USEPROXY == true) {
+        curl_setopt($curl, CURLOPT_PROXY, CURL_PROXYSERVER);
+    }
+
+    $json_response = curl_exec($curl);
+
+    curl_close($curl);
+
+    $response = json_decode($json_response, true);
+
+    // Return response.
+    return $response;
+}
+
+/**
+ * Запрос полнолуний
+ * @param $tz
+ * @return $response
+ */
+function curl_get_fullmoon($tz){
+    //Format
+    $format = 'json';
+
+    $URL = 'https://isitfullmoon.com/api.php?';
+    $query = $URL.'tz='.$tz.'&format='.$format;
+    //$query = $URL.'format='.$format;
+
+    $curl = curl_init();
+
+    curl_setopt($curl, CURLOPT_URL, $query);
+
+    curl_setopt($curl, CURLOPT_HEADER, FALSE);
+    curl_setopt($curl, CURLOPT_RETURNTRANSFER, TRUE);
+    curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, FALSE);
+    curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, FALSE);
+    curl_setopt($curl, CURLOPT_TIMEOUT, 15);
+    curl_setopt($curl, CURLOPT_FAILONERROR, TRUE);
+
+    // Use Proxyserver for curl if configured
+    if (CURL_USEPROXY == true) {
+        curl_setopt($curl, CURLOPT_PROXY, CURL_PROXYSERVER);
+    }
+
+    $json_response = curl_exec($curl);
+
+    curl_close($curl);
+
+    $response = json_decode($json_response, true);
 
     // Return response.
     return $response;

@@ -2,10 +2,10 @@
   "weekday_1":{  
     "NL":"Maandag",
     "DE":"Montag",
-    "EN":"Monday",
+    "EN":"Mo",
     "IT":"Lunedì",
     "PT-BR":"segunda-feira",
-    "RU":"ПН",
+    "RU":"Пн",
     "NO":"Mandag",
     "FR":"Lundi",
     "PL":"Poniedziałek"
@@ -13,10 +13,10 @@
   "weekday_2":{  
     "NL":"Dinsdag",
     "DE":"Dienstag",
-    "EN":"Tuesday",
+    "EN":"Tu",
     "IT":"Martedì",
     "PT-BR":"terça-feira",
-    "RU":"ВТ",
+    "RU":"Вт",
     "NO":"Tirsdag",
     "FR":"Mardi",
     "PL":"Wtorek"
@@ -24,10 +24,10 @@
   "weekday_3":{  
     "NL":"Woensdag",
     "DE":"Mittwoch",
-    "EN":"Wednesday",
+    "EN":"We",
     "IT":"Mercoledì",
     "PT-BR":"quarta-feira",
-    "RU":"СР",
+    "RU":"Ср",
     "NO":"Onsdag",
     "FR":"Mercredi",
     "PL":"Środa"
@@ -35,10 +35,10 @@
   "weekday_4":{  
     "NL":"Donderdag",
     "DE":"Donnerstag",
-    "EN":"Thursday",
+    "EN":"Th",
     "IT":"Giovedì",
     "PT-BR":"quinta-feira",
-    "RU":"ЧТ",
+    "RU":"Чт",
     "NO":"Torsdag",
     "FR":"Jeudi",
     "PL":"Czwartek"
@@ -46,10 +46,10 @@
   "weekday_5":{  
     "NL":"Vrijdag",
     "DE":"Freitag",
-    "EN":"Friday",
+    "EN":"Fr",
     "IT":"Venerdì",
     "PT-BR":"sexta-feira",
-    "RU":"ПТ",
+    "RU":"Пт",
     "NO":"Fredag",
     "FR":"Vendredi",
     "PL":"Piątek"
@@ -57,10 +57,10 @@
   "weekday_6":{  
     "NL":"Zaterdag",
     "DE":"Samstag",
-    "EN":"Saturday",
+    "EN":"Sa",
     "IT":"Sabato",
     "PT-BR":"sábado",
-    "RU":"СБ",
+    "RU":"сб",
     "NO":"Lørdag",
     "FR":"Samedi",
     "PL":"Sobota"
@@ -68,10 +68,10 @@
   "weekday_0":{
     "NL":"Zondag",
     "DE":"Sonntag",
-    "EN":"Sunday",
+    "EN":"Su",
     "IT":"Domenica",
     "PT-BR":"domingo",
-    "RU":"ВС",
+    "RU":"Вс",
     "NO":"Søndag",
     "FR":"Dimanche",
     "PL":"Niedziela"
@@ -82,7 +82,7 @@
     "EN":"January",
     "IT":"Gennaio",
     "PT-BR":"Janeiro",
-    "RU":"Январь",
+    "RU":"января",
     "NO":"Januar",
     "FR":"Janvier",
     "PL":"Styczeń"
@@ -93,7 +93,7 @@
     "EN":"February",
     "IT":"Febbraio",
     "PT-BR":"Fevereiro",
-    "RU":"Февраль",
+    "RU":"февраля",
     "NO":"Februar",
     "FR":"Février",
     "PL":"Luty"
@@ -104,7 +104,7 @@
     "EN":"March",
     "IT":"Marzo",
     "PT-BR":"Março",
-    "RU":"Март",
+    "RU":"марта",
     "NO":"Mars",
     "FR":"Mars",
     "PL":"Marzec"
@@ -115,7 +115,7 @@
     "EN":"April",
     "IT":"Aprile",
     "PT-BR":"Abril",
-    "RU":"Апрель",
+    "RU":"апреля",
     "NO":"April",
     "FR":"Avril",
     "PL":"Kwiecień"
@@ -126,7 +126,7 @@
     "EN":"May",
     "IT":"Maggio",
     "PT-BR":"Maio",
-    "RU":"Май",
+    "RU":"мая",
     "NO":"Mai",
     "FR":"Mai",
     "PL":"Maj"
@@ -137,7 +137,7 @@
     "EN":"June",
     "IT":"Giugno",
     "PT-BR":"Junho",
-    "RU":"Июнь",
+    "RU":"июня",
     "NO":"Juni",
     "FR":"Juin",
     "PL":"Czerwiec"
@@ -148,7 +148,7 @@
     "EN":"July",
     "IT":"Luglio",
     "PT-BR":"Julho",
-    "RU":"Июль",
+    "RU":"июля",
     "NO":"Juli",
     "FR":"Juillet",
     "PL":"Lipiec"
@@ -159,7 +159,7 @@
     "EN":"August",
     "IT":"Agosto",
     "PT-BR":"Agosto",
-    "RU":"Август",
+    "RU":"августа",
     "NO":"August",
     "FR":"Août",
     "PL":"Sierpień"
@@ -170,7 +170,7 @@
     "EN":"September",
     "IT":"Settembre",
     "PT-BR":"Setembro",
-    "RU":"Сентябрь",
+    "RU":"сентября",
     "NO":"September",
     "FR":"Septembre",
     "PL":"Wrzesień"
@@ -181,7 +181,7 @@
     "EN":"October",
     "IT":"Ottobre",
     "PT-BR":"Outubro",
-    "RU":"Октябрь",
+    "RU":"октября",
     "NO":"Oktober",
     "FR":"Octobre",
     "PL":"Październik"
@@ -192,7 +192,7 @@
     "EN":"November",
     "IT":"Novembre",
     "PT-BR":"Novembro",
-    "RU":"Ноябрь",
+    "RU":"ноября",
     "NO":"November",
     "FR":"Novembre",
     "PL":"Listopad"
@@ -203,7 +203,7 @@
     "EN":"December",
     "IT":"Dicembre",
     "PT-BR":"Dezembro",
-    "RU":"Декабрь",
+    "RU":"декабря",
     "NO":"Desember",
     "FR":"Décembre",
     "PL":"Grudzień"
@@ -214,18 +214,29 @@
     "EN":"You are not allowed to use this command or bot!",
     "IT":"Non hai i permessi necessari per usare questo comando o bot!",
     "PT-BR":"Você não tem permissão para utilizar esse comando ou bot!",
-    "RU":"Вы не можете использовать эту команду или бота!",
+    "RU":"Вы не можете использовать эту команду!",
     "NO":"Du har ikke tillatelse til å bruke denne kommandoen eller boten!",
     "FR":"Tu n'es pas autorisé à utiliser cette commande !",
     "PL":"Nie masz uprawnień do korzystania z tej komendy lub bota!"
   },
-  "forest":{  
+  "geo_time":{
+    "NL":"",
+    "DE":"",
+    "EN":"!!!Time for your location!!!",
+    "IT":"",
+    "PT-BR":"",
+    "RU":"Время указано местное. В соответствии с геолокацией, которую вы прислали.",
+    "NO":"",
+    "FR":"",
+    "PL":""
+  },
+  "forest":{
     "NL":"Ergens in het bos",
     "DE":"Irgendwo im Wald",
     "EN":"Somewhere in the forest",
     "IT":"Da qualche parte nella foresta",
     "PT-BR":"Em algum lugar na floresta",
-    "RU":"Где-то в лесу",
+    "RU":"Хрен знает где...",
     "NO":"Ett sted i skogen",
     "FR":"Quelque part dans la forêt",
     "PL":"Gdzieś w lesie"
@@ -438,6 +449,116 @@
     "NO":"",
     "FR":"",
     "PL":""
+  },
+  "anytime":{
+    "NL":"",
+    "DE":"",
+    "EN":"Any time",
+    "IT":"",
+    "PT-BR":"",
+    "RU":"В любое время",
+    "NO":"",
+    "FR":"",
+    "PL":""
+  },
+  "sunrise":{
+    "NL":"",
+    "DE":"",
+    "EN":"Sunrise",
+    "IT":"",
+    "PT-BR":"",
+    "RU":"Рассвет",
+    "NO":"",
+    "FR":"",
+    "PL":""
+  },
+  "sunset":{
+    "NL":"",
+    "DE":"",
+    "EN":"Sunset",
+    "IT":"",
+    "PT-BR":"",
+    "RU":"Закат",
+    "NO":"",
+    "FR":"",
+    "PL":""
+  },
+  "fullmoon":{
+    "NL":"",
+    "DE":"",
+    "EN":"Full moon",
+    "IT":"",
+    "PT-BR":"",
+    "RU":"Полнолуние",
+    "NO":"",
+    "FR":"",
+    "PL":""
+  },
+  "next_day":{
+    "NL":"",
+    "DE":"",
+    "EN":"next day:",
+    "IT":"",
+    "PT-BR":"",
+    "RU":"следующий день:",
+    "NO":"",
+    "FR":"",
+    "PL":""
+  },
+  "today":{
+    "NL":"",
+    "DE":"",
+    "EN":"Today",
+    "IT":"",
+    "PT-BR":"",
+    "RU":"Сегодня",
+    "NO":"",
+    "FR":"",
+    "PL":""
+  },
+  "tomorrow":{
+    "NL":"",
+    "DE":"",
+    "EN":"Tomorrow",
+    "IT":"",
+    "PT-BR":"",
+    "RU":"Завтра",
+    "NO":"",
+    "FR":"",
+    "PL":""
+  },
+  "now":{
+    "NL":"",
+    "DE":"",
+    "EN":"Now",
+    "IT":"",
+    "PT-BR":"",
+    "RU":"Сейчас",
+    "NO":"",
+    "FR":"",
+    "PL":""
+  },
+  "from":{
+    "NL":"van",
+    "DE":"von",
+    "EN":"from",
+    "IT":"da",
+    "PT-BR":"de",
+    "RU":"с",
+    "NO":"fra",
+    "FR":"de",
+    "PL":"od"
+  },
+  "to":{
+    "NL":"tot",
+    "DE":"bis",
+    "EN":"to",
+    "IT":"a",
+    "PT-BR":"até",
+    "RU":"до",
+    "NO":"til",
+    "FR":"DEPOP",
+    "PL":"do"
   }
 }
 

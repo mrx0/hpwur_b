@@ -1196,8 +1196,12 @@ function choose_action_keys($lat, $lon, $admin = false){
             'callback_data' => ':raid_by_location:'.$lat.'+'.$lon,
         ],
         [
-            'text' => getTranslation('get_oddities_time'),
-            'callback_data' => ':get_oddities_time:'.$lat.'+'.$lon,
+            'text' => getTranslation('search_a_raid'),
+            'callback_data' => ':search_raid:'.$lat.'+'.$lon,
+        ],
+        [
+            'text' => getTranslation('oddities_time'),
+            'callback_data' => ':oddities_time:'.$lat.'+'.$lon,
         ]
     ];
 
@@ -3205,8 +3209,7 @@ function get_overview($update, $chats_active, $raids_active, $action = 'refresh'
  * @param string $format
  * @return bool|string
  */
-function unix2tz($unix, $tz, $format = 'H:i')
-{
+function unix2tz($unix, $tz, $format = 'H:i'){
     // Unix timestamp is required.
     if (!empty($unix)) {
         // Create dateTime object.
@@ -3374,7 +3377,7 @@ function show_raid_poll($raid){
         $tl_msg = '<b>' . getRaidTranslation('raid_done') . '</b>' . CR;
     } else {
 	// Replace $time_left with $tl_msg too
-        $tl_msg = ' — <b>' . getRaidTranslation('still') . ' ' . floor($time_left / 60) . ':' . str_pad($time_left % 60, 2, '0', STR_PAD_LEFT) . 'h</b>' . CR;
+        $tl_msg = ' (' . getRaidTranslation('still') . ' ' . floor($time_left / 60) . ':' . str_pad($time_left % 60, 2, '0', STR_PAD_LEFT) . ')' . CR;
     }
 
     // Raid has not started yet - adjust time left message
@@ -3426,7 +3429,7 @@ function show_raid_poll($raid){
         // Add time left message.
         } else {
             $msg .= getRaidTranslation('raid_until') . ' ' . unix2tz($raid['ts_end'], $raid['timezone']);
-	    $msg .= $tl_msg;
+	        $msg .= $tl_msg;
         }
     }
 

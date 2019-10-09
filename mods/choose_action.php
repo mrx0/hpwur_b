@@ -7,7 +7,7 @@
 debug_log('choose_action()');
 
 // For debug.
-//debug_log($update);
+debug_log($update);
 //debug_log($data);
 
 // Get latitude / longitude values from Telegram

@@ -291,7 +291,7 @@
     "EN":"Raid until",
     "IT":"Raid fino",
     "PT-BR":"Reide até",
-    "RU":"Рейд до",
+    "RU":"Будет до",
     "NO":"Raid fram til",
     "FR":"DEPOP",
     "PL":"Rajd trwa do"
@@ -340,29 +340,7 @@
     "FR":"Annuler",
     "PL":"Odwołany"
   },
-  "from":{  
-    "NL":"van",
-    "DE":"von",
-    "EN":"from",
-    "IT":"da",
-    "PT-BR":"de",
-    "RU":"от",
-    "NO":"fra",
-    "FR":"de",
-    "PL":"od"
-  },
-  "to":{  
-    "NL":"tot",
-    "DE":"bis",
-    "EN":"to",
-    "IT":"a",
-    "PT-BR":"até",
-    "RU":"до",
-    "NO":"til",
-    "FR":"DEPOP",
-    "PL":"do"
-  },
-  "no_participants":{  
+  "no_participants":{
     "NL":"Geen deelnemers",
     "DE":"Keine Teilnehmer",
     "EN":"No participants",
@@ -1132,7 +1110,18 @@
     "FR":"Créer un raid",
     "PL":"Wygeneruj Rajd"
   },
-  "coordination_succes":{  
+  "search_a_raid":{
+    "NL":"",
+    "DE":"",
+    "EN":"Search a Raid",
+    "IT":"",
+    "PT-BR":"",
+    "RU":"Искать Рейд",
+    "NO":"",
+    "FR":"",
+    "PL":""
+  },
+  "coordination_succes":{
     "NL":"Coördinatie geslaagd!",
     "DE":"Koordinaten erfolgreich übermittelt!",
     "EN":"Coordinates successfully submitted!",
@@ -1571,6 +1560,28 @@
     "FR":"Peu importe le boss",
     "PL":"Obojętnie jaki Boss Rajdu"
   },
+  "language":{
+    "NL":"",
+    "DE":"",
+    "EN":"Язык",
+    "IT":"",
+    "PT-BR":"",
+    "RU":"Language",
+    "NO":"",
+    "FR":"",
+    "PL":""
+  },
+  "profile":{
+    "NL":"",
+    "DE":"",
+    "EN":"Profile",
+    "IT":"",
+    "PT-BR":"",
+    "RU":"Профиль",
+    "NO":"",
+    "FR":"",
+    "PL":""
+  },
   "prof_level":{
     "NL":"",
     "DE":"",
@@ -1637,13 +1648,46 @@
     "FR":"",
     "PL":""
   },
-  "get_oddities_time":{
+  "oddities_time":{
     "NL":"",
     "DE":"",
     "EN":"Oddities",
     "IT":"",
     "PT-BR":"",
     "RU":"Oddities",
+    "NO":"",
+    "FR":"",
+    "PL":""
+  },
+  "no_data":{
+    "NL":"",
+    "DE":"",
+    "EN":"<i>Failed to get data...</i>",
+    "IT":"",
+    "PT-BR":"",
+    "RU":"<i>Не удалось получить данные...</i>",
+    "NO":"",
+    "FR":"",
+    "PL":""
+  },
+  "no_werewolf_data":{
+    "NL":"",
+    "DE":"",
+    "EN":"<i>Failed to get werewolf data...</i>",
+    "IT":"",
+    "PT-BR":"",
+    "RU":"<i>Не удалось получить данные по оборотням...</i>",
+    "NO":"",
+    "FR":"",
+    "PL":""
+  },
+  "no_other_oddities_data":{
+    "NL":"",
+    "DE":"",
+    "EN":"<i>Failed to get data for other oddities...</i>",
+    "IT":"",
+    "PT-BR":"",
+    "RU":"<i>Не удалось получить данные по всем остальным...</i>",
     "NO":"",
     "FR":"",
     "PL":""
