@@ -1121,6 +1121,28 @@
     "FR":"",
     "PL":""
   },
+  "create_a_group":{
+    "NL":"",
+    "DE":"",
+    "EN":"Create a Group",
+    "IT":"",
+    "PT-BR":"",
+    "RU":"Создать Группу",
+    "NO":"",
+    "FR":"",
+    "PL":""
+  },
+  "search_a_group":{
+    "NL":"",
+    "DE":"",
+    "EN":"Search a Group",
+    "IT":"",
+    "PT-BR":"",
+    "RU":"Искать Группу",
+    "NO":"",
+    "FR":"",
+    "PL":""
+  },
   "coordination_succes":{
     "NL":"Coördinatie geslaagd!",
     "DE":"Koordinaten erfolgreich übermittelt!",
@@ -1567,17 +1589,6 @@
     "IT":"",
     "PT-BR":"",
     "RU":"Language",
-    "NO":"",
-    "FR":"",
-    "PL":""
-  },
-  "profile":{
-    "NL":"",
-    "DE":"",
-    "EN":"Profile",
-    "IT":"",
-    "PT-BR":"",
-    "RU":"Профиль",
     "NO":"",
     "FR":"",
     "PL":""

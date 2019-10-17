@@ -48,6 +48,10 @@ if ($update['callback_query']['message']['chat']['type'] == 'private') {
             [
                 'text'          => getTranslation('delete'),
                 'callback_data' => $id . ':raids_delete:0'
+            ],
+            [
+                'text'          => 'Change Desc',
+                'reply_markup' => 'force_reply'
             ]
         ]
     ];
