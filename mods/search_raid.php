@@ -1,28 +1,14 @@
 <?php
 
-//raid_by_location.php
-//Создаем рейд по локации, сразу выбираем дату рейда
+//search_raid.php
+//Ищем открытый рейд по локации в указанном радиусе
 
 // Write to log.
-debug_log('raid_by_location()');
+debug_log('search_raid()');
 
 // For debug.
 //debug_log($update);
 //debug_log($data);
-
-// Get latitude / longitude values from Telegram
-//if(isset($update['message']['location'])) {
-//    $lat = $update['message']['location']['latitude'];
-//    $lon = $update['message']['location']['longitude'];
-//} else if(isset($update['callback_query'])) {
-//    $lat = $data['id'];
-//    $lon = $data['arg'];
-//} else {
-//    sendMessage($update['message']['chat']['id'], '<b>' . getTranslation('not_supported') . '</b>');
-//    exit();
-//}
-
-
 
 //Если возвращаемся сюда, то place_id не будет пустым
 //$place_id = 0;
@@ -57,139 +43,117 @@ if ($place_id != NULL){
     // Build address string.
     $address = getTranslation('forest');
 
-    if (!empty(GOOGLE_API_KEY)) {
-        $addr = get_address($lat, $lon);
-
-        // Get full address - Street #, ZIP District
-        $address = '';
-        $address .= (!empty($addr['street']) ? $addr['street'] : '');
-        $address .= (!empty($addr['street_number']) ? ' ' . $addr['street_number'] : '');
-        $address .= (!empty($addr) ? ', ' : '');
-        //$address .= (!empty($addr['postal_code']) ? $addr['postal_code'] . ' ' : '');
-        $address .= (!empty($addr['district']) ? $addr['district'] : '');
-    }
-
-    // Temporary place_name
-    $place_name = '#' . $update['callback_query']['message']['chat']['id'];
+    /*$lat и $lng - координаты точки, $radius - радиус в метрах (0,1988 переводит в радианы) –*/
+    $radius = 4000;
 
     $rs = my_query(
         "
-    INSERT INTO places
-    SET         lat = '{$lat}',
-                lon = '{$lon}',
-		        address = '{$db->real_escape_string($address)}',
-                place_name = '{$db->real_escape_string($place_name)}'
-    "
-    );
+        SELECT id, ( 6371 * acos( cos( radians({$lat}) ) * cos( radians( lat ) ) * cos( radians( lon ) - radians({$lon}) ) + sin( radians({$lat}) ) * sin( radians( lat ) ) ) )
+        AS distance 
+        FROM places
+        ORDER BY distance
+        HAVING distance < {$radius} 
+        /*LIMIT 0 , 20;*/
+        "
+        );
+    $res = $rs->fetch_assoc();
 
-    // Get last insert id from db.
-    $place_id = my_insert_id();
+    debug_log($res);
 }
 
-//$place_letter = substr($place_name, 0, 1);
-
-// Write to log.
-debug_log('Place ID: ' . $place_id);
-debug_log('Place Name: ' . $place_name);
-
-
-// Check access - user must be admin for raid_level X
-//$admin_access = bot_access_check($update, BOT_ADMINS, true);
-//if ($admin_access) {
-    // Get the keys.
-    //$keys = raid_edit_raidlevel_keys($place_id, $place_first_letter, true);
-//    $keys = raid_edit_opportunity_keys($place_id, $place_first_letter, true);
+//    if (!empty(GOOGLE_API_KEY)) {
+//        $addr = get_address($lat, $lon);
+//
+//        // Get full address - Street #, ZIP District
+//        $address = '';
+//        $address .= (!empty($addr['street']) ? $addr['street'] : '');
+//        $address .= (!empty($addr['street_number']) ? ' ' . $addr['street_number'] : '');
+//        $address .= (!empty($addr) ? ', ' : '');
+//        //$address .= (!empty($addr['postal_code']) ? $addr['postal_code'] . ' ' : '');
+//        $address .= (!empty($addr['district']) ? $addr['district'] : '');
+//    }
+//
+//    // Temporary place_name
+//    $place_name = '#' . $update['callback_query']['message']['chat']['id'];
+//
+//    $rs = my_query(
+//        "
+//    INSERT INTO places
+//    SET         lat = '{$lat}',
+//                lon = '{$lon}',
+//		        address = '{$db->real_escape_string($address)}',
+//                place_name = '{$db->real_escape_string($place_name)}'
+//    "
+//    );
+//
+//    // Get last insert id from db.
+//    $place_id = my_insert_id();
+//}
+//
+////$place_letter = substr($place_name, 0, 1);
+//
+//// Write to log.
+//debug_log('Place ID: ' . $place_id);
+//debug_log('Place Name: ' . $place_name);
+//
+//
+//// Check access - user must be admin for raid_level X
+////$admin_access = bot_access_check($update, BOT_ADMINS, true);
+////if ($admin_access) {
+//    // Get the keys.
+//    //$keys = raid_edit_raidlevel_keys($place_id, $place_first_letter, true);
+////    $keys = raid_edit_opportunity_keys($place_id, $place_first_letter, true);
+////} else {
+//    // Get the keys.
+//    //$keys = raid_edit_raidlevel_keys($place_id, $place_first_letter);
+////    $keys = raid_edit_opportunity_keys($place_id, $place_first_letter);
+////}
+//
+////$place_first_letter = 0;
+//
+////$keys = raid_edit_opportunity_keys($place_id, $place_first_letter);
+////Выбираем дату
+//$keys = raid_edit_days_keys($place_id);
+//
+//// No keys found.
+//if (!$keys) {
+//    // Create the keys.
+//    $keys = [
+//        [
+//            [
+//                'text' => getTranslation('abort'),
+//                'callback_data' => '0:exit:0'
+//            ]
+//        ]
+//    ];
 //} else {
-    // Get the keys.
-    //$keys = raid_edit_raidlevel_keys($place_id, $place_first_letter);
-//    $keys = raid_edit_opportunity_keys($place_id, $place_first_letter);
+//    // Back key id, action and arg
+//    $back_id = $lat;
+//    $back_action = 'choose_action';
+//    $back_arg = $lon;
+//    // Add navigation keys.
+//    $nav_keys = [];
+//    //$nav_keys[] = universal_inner_key($nav_keys, $back_id, $back_action, $back_arg, getTranslation('back'));
+//    $nav_keys[] = universal_inner_key($nav_keys, $place_id, 'exit', '2', getTranslation('abort'));
+//    $nav_keys = inline_key_array($nav_keys, 2);
+//    // Merge keys.
+//    $keys = array_merge($keys, $nav_keys);
 //}
-
-//$place_first_letter = 0;
-
-//$keys = raid_edit_opportunity_keys($place_id, $place_first_letter);
-//Выбираем дату
-$keys = raid_edit_days_keys($place_id);
-
-// No keys found.
-if (!$keys) {
-    // Create the keys.
-    $keys = [
-        [
-            [
-                'text' => getTranslation('abort'),
-                'callback_data' => '0:exit:0'
-            ]
-        ]
-    ];
-} else {
-    // Back key id, action and arg
-    $back_id = $lat;
-    $back_action = 'choose_action';
-    $back_arg = $lon;
-    // Add navigation keys.
-    $nav_keys = [];
-    //$nav_keys[] = universal_inner_key($nav_keys, $back_id, $back_action, $back_arg, getTranslation('back'));
-    $nav_keys[] = universal_inner_key($nav_keys, $place_id, 'exit', '2', getTranslation('abort'));
-    $nav_keys = inline_key_array($nav_keys, 2);
-    // Merge keys.
-    $keys = array_merge($keys, $nav_keys);
-}
-
-// Write to log.
-debug_log($keys);
-
-
-// Create the keys.
-//$keys = [
-//    [
-//        [
-//            'text'          => getTranslation('next'),
-//            'callback_data' => $place_letter . ':edit_raidlevel:' . $place_id
-//        ]
-//    ],
-//    [
-//        [
-//            'text'          => getTranslation('abort'),
-//            'callback_data' => $place_id . ':exit:2'
-//        ]
-//    ]
-//];
-
-
-//if(isset($update['callback_query'])) {
-//    //!!! заменить тут на норм текст ...
-//    // Build callback message string.
-//    $callback_response = getTranslation('select_date');
 //
-//    // Answer callback.
-//    answerCallbackQuery($update['callback_query']['id'], $callback_response);
+//// Write to log.
+//debug_log($keys);
 //
-//    // Edit the message.
-//    edit_message($update, getTranslation('select_date'), $keys);
+//// Build message.
+//$msg = getTranslation('create_raid') . ':' . CR . '<i>' . $address . '</i>' . CR2 . getTranslation('select_date');
 //
-//    // Debug
-////    debug_log('$update: ');
-////    debug_log($update);
-//}else{
-//    // Build message.
-//    $msg = getTranslation('create_raid') . ':'.CR. '<i>' . $address . '</i>'.CR2.getTranslation('select_date');
+//// Build callback message string.
+//$callback_response = getTranslation('create_raid');
 //
-//    // Send message.
-//    send_message($update['message']['chat']['id'], $msg, $keys, ['reply_markup' => ['selective' => true, 'one_time_keyboard' => true]]);
-//}
-
-// Build message.
-$msg = getTranslation('create_raid') . ':' . CR . '<i>' . $address . '</i>' . CR2 . getTranslation('select_date');
-
-// Build callback message string.
-$callback_response = getTranslation('create_raid');
-
-// Answer callback.
-answerCallbackQuery($update['callback_query']['id'], $callback_response);
-
-// Edit the message.
-edit_message($update, $msg, $keys);
+//// Answer callback.
+//answerCallbackQuery($update['callback_query']['id'], $callback_response);
+//
+//// Edit the message.
+//edit_message($update, $msg, $keys);
 
 // Exit.
 exit();

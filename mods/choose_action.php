@@ -18,7 +18,7 @@ if(isset($update['message']['location'])) {
     $lat = $data['id'];
     $lon = $data['arg'];
 } else {
-    sendMessage($update['message']['chat']['id'], '<b>' . getTranslation('not_supported') . '</b>');
+    send_message($update['message']['chat']['id'], '<b>' . getTranslation('not_supported') . '</b>');
     exit();
 }
 

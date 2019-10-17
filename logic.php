@@ -1199,10 +1199,10 @@ function choose_action_keys($lat, $lon, $admin = false){
             'text' => getTranslation('search_a_raid'),
             'callback_data' => ':search_raid:'.$lat.'+'.$lon,
         ],
-        [
+        /*[
             'text' => getTranslation('oddities_time'),
             'callback_data' => ':oddities_time:'.$lat.'+'.$lon,
-        ]
+        ]*/
     ];
 
         //Формируем кнопки

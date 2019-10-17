@@ -1,4 +1,7 @@
 <?php
+
+//raids_delete.php
+
 // Write to log.
 debug_log('raids_delete()');
 
